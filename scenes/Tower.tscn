@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2mxwcxps1t1w"]
+
+[ext_resource type="Texture2D" uid="uid://fopmfsnrkucm" path="res://assets/sprites/tower.png" id="1_mlpp4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dy2on"]
+size = Vector2(510, 1024)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g7ies"]
+size = Vector2(545, 1054)
+
+[node name="Tower" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_mlpp4")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_dy2on")
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2.5, -3)
+shape = SubResource("RectangleShape2D_g7ies")
+metadata/_edit_lock_ = true

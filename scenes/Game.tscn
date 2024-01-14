@@ -1,10 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://hjag5isbtsj5"]
+[gd_scene load_steps=4 format=3 uid="uid://hjag5isbtsj5"]
 
 [ext_resource type="Script" path="res://scripts/Game.gd" id="1_dgiqo"]
 [ext_resource type="PackedScene" uid="uid://rgqlua35cw05" path="res://scenes/Player.tscn" id="1_lso4r"]
+[ext_resource type="PackedScene" uid="uid://d2mxwcxps1t1w" path="res://scenes/Tower.tscn" id="3_1fc8h"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_dgiqo")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+
 [node name="Player" parent="." instance=ExtResource("1_lso4r")]
-position = Vector2(955, 495)
+position = Vector2(0, 800)
+
+[node name="Tower" parent="." instance=ExtResource("3_1fc8h")]
