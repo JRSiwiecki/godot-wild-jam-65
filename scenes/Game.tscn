@@ -11,35 +11,29 @@
 script = ExtResource("1_dgiqo")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(0.4, 0.4)
 
 [node name="Tower" parent="." instance=ExtResource("3_1fc8h")]
 
 [node name="Walls" type="Node2D" parent="."]
 
 [node name="Top Wall" parent="Walls" instance=ExtResource("6_kwws6")]
-position = Vector2(0, -1080)
-scale = Vector2(195, 1)
+position = Vector2(0, -1800)
+scale = Vector2(325, 1)
 
 [node name="Left Wall" parent="Walls" instance=ExtResource("6_kwws6")]
-position = Vector2(-1920, 0)
+position = Vector2(-3200, 0)
 rotation = 1.5708
-scale = Vector2(110, 1)
+scale = Vector2(185, 1)
 
 [node name="Right Wall" parent="Walls" instance=ExtResource("6_kwws6")]
-position = Vector2(1920, 0)
+position = Vector2(3200, 0)
 rotation = 1.5708
-scale = Vector2(110, 1)
+scale = Vector2(185, 1)
 
 [node name="Bottom Wall" parent="Walls" instance=ExtResource("6_kwws6")]
-position = Vector2(0, 1080)
-scale = Vector2(195, 1)
-
-[node name="Enemies" type="Node2D" parent="."]
-
-[node name="Enemy" parent="Enemies" instance=ExtResource("4_ikbqd")]
-position = Vector2(-7, -1268)
-collision_mask = 2
+position = Vector2(0, 1800)
+scale = Vector2(325, 1)
 
 [node name="Powers" type="Node2D" parent="."]
 
@@ -48,6 +42,44 @@ position = Vector2(-1136, 2)
 
 [node name="Power2" parent="Powers" instance=ExtResource("5_ukpnx")]
 position = Vector2(1128, 0)
+
+[node name="Power3" parent="Powers" instance=ExtResource("5_ukpnx")]
+position = Vector2(1144, 596)
+
+[node name="Power4" parent="Powers" instance=ExtResource("5_ukpnx")]
+position = Vector2(-1124, 600)
+
+[node name="Power5" parent="Powers" instance=ExtResource("5_ukpnx")]
+position = Vector2(-1160, -648)
+
+[node name="Power6" parent="Powers" instance=ExtResource("5_ukpnx")]
+position = Vector2(1168, -648)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("4_ikbqd")]
+position = Vector2(-13, -2156)
+
+[node name="Enemy5" parent="Enemies" instance=ExtResource("4_ikbqd")]
+position = Vector2(-3537, -2184)
+
+[node name="Enemy6" parent="Enemies" instance=ExtResource("4_ikbqd")]
+position = Vector2(3692, -2218)
+
+[node name="Enemy7" parent="Enemies" instance=ExtResource("4_ikbqd")]
+position = Vector2(3500, 2132)
+
+[node name="Enemy8" parent="Enemies" instance=ExtResource("4_ikbqd")]
+position = Vector2(-3481, 2138)
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("4_ikbqd")]
+position = Vector2(-3568, -19)
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource("4_ikbqd")]
+position = Vector2(-9, 2079)
+
+[node name="Enemy4" parent="Enemies" instance=ExtResource("4_ikbqd")]
+position = Vector2(3497, -11)
 
 [node name="Player" parent="." instance=ExtResource("1_lso4r")]
 position = Vector2(0, 800)

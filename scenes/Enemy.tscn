@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bd52ctd8mtv5e"]
 
 [ext_resource type="Texture2D" uid="uid://3c2jd80s4u1m" path="res://assets/sprites/enemy.png" id="1_t6rae"]
-[ext_resource type="Script" path="res://scenes/Enemy.gd" id="1_xihlk"]
+[ext_resource type="Script" path="res://scripts/Enemy.gd" id="1_v5ury"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ip68"]
 size = Vector2(256, 256)
@@ -13,7 +13,7 @@ size = Vector2(271, 276)
 scale = Vector2(0.5, 0.5)
 collision_layer = 2
 collision_mask = 2
-script = ExtResource("1_xihlk")
+script = ExtResource("1_v5ury")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_t6rae")

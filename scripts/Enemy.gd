@@ -4,8 +4,7 @@ extends CharacterBody2D
 
 @export var speed : float = 250.0
 
-var tower_position
-var target_position
+var tower_position : Vector2
 
 func _ready() -> void:
 	tower = get_node("/root/Game/Tower")
@@ -14,7 +13,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	velocity = Vector2.ZERO
 	
-	target_position = (tower_position - position).normalized()
+	var target_position : Vector2 = (tower_position - position).normalized()
 	
 	if position.distance_to(tower_position) > 3:
 		velocity = target_position * speed
