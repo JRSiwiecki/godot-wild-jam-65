@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://hjag5isbtsj5"]
+[gd_scene load_steps=7 format=3 uid="uid://hjag5isbtsj5"]
 
 [ext_resource type="Script" path="res://scripts/Game.gd" id="1_dgiqo"]
 [ext_resource type="PackedScene" uid="uid://rgqlua35cw05" path="res://scenes/Player.tscn" id="1_lso4r"]
 [ext_resource type="PackedScene" uid="uid://d2mxwcxps1t1w" path="res://scenes/Tower.tscn" id="3_1fc8h"]
 [ext_resource type="PackedScene" uid="uid://bd52ctd8mtv5e" path="res://scenes/Enemy.tscn" id="4_ikbqd"]
 [ext_resource type="PackedScene" uid="uid://cxmnkjdvnqweh" path="res://scenes/Power.tscn" id="5_ukpnx"]
+[ext_resource type="PackedScene" uid="uid://cfmjfdau01t6k" path="res://scenes/Wall.tscn" id="6_kwws6"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_dgiqo")
@@ -12,13 +13,40 @@ script = ExtResource("1_dgiqo")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
 
-[node name="Power" parent="." instance=ExtResource("5_ukpnx")]
-position = Vector2(-1136, 2)
-
 [node name="Tower" parent="." instance=ExtResource("3_1fc8h")]
 
-[node name="Enemy" parent="." instance=ExtResource("4_ikbqd")]
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Top Wall" parent="Walls" instance=ExtResource("6_kwws6")]
+position = Vector2(0, -1080)
+scale = Vector2(195, 1)
+
+[node name="Left Wall" parent="Walls" instance=ExtResource("6_kwws6")]
+position = Vector2(-1920, 0)
+rotation = 1.5708
+scale = Vector2(110, 1)
+
+[node name="Right Wall" parent="Walls" instance=ExtResource("6_kwws6")]
+position = Vector2(1920, 0)
+rotation = 1.5708
+scale = Vector2(110, 1)
+
+[node name="Bottom Wall" parent="Walls" instance=ExtResource("6_kwws6")]
+position = Vector2(0, 1080)
+scale = Vector2(195, 1)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("4_ikbqd")]
 position = Vector2(-3, -772)
+
+[node name="Powers" type="Node2D" parent="."]
+
+[node name="Power" parent="Powers" instance=ExtResource("5_ukpnx")]
+position = Vector2(-1136, 2)
+
+[node name="Power2" parent="Powers" instance=ExtResource("5_ukpnx")]
+position = Vector2(1128, 0)
 
 [node name="Player" parent="." instance=ExtResource("1_lso4r")]
 position = Vector2(0, 800)

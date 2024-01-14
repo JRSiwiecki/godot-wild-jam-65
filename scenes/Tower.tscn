@@ -9,6 +9,7 @@ size = Vector2(510, 1024)
 size = Vector2(545, 1054)
 
 [node name="Tower" type="StaticBody2D"]
+collision_layer = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_mlpp4")
