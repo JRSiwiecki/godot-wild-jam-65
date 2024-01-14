@@ -13,29 +13,43 @@ script = ExtResource("1_dgiqo")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.4, 0.4)
 
+[node name="Spawn Area" type="Area2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Spawn Area"]
+polygon = PackedVector2Array(-3041, -1684, -3027, 1637, 3062, 1670, 3019, -1679, -7, -1665, 8, -689, 203, -666, 355, -547, 388, 0, 398, 452, 212, 652, 27, 709, -235, 666, -416, 433, -430, -4, -430, -452, -216, -647, 8, -685, -2, -1669)
+metadata/_edit_lock_ = true
+
 [node name="Tower" parent="." instance=ExtResource("3_1fc8h")]
+metadata/_edit_lock_ = true
 
 [node name="Walls" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="Top Wall" parent="Walls" instance=ExtResource("6_kwws6")]
 position = Vector2(0, -1800)
 scale = Vector2(325, 1)
+metadata/_edit_lock_ = true
 
 [node name="Left Wall" parent="Walls" instance=ExtResource("6_kwws6")]
 position = Vector2(-3200, 0)
 rotation = 1.5708
 scale = Vector2(185, 1)
+metadata/_edit_lock_ = true
 
 [node name="Right Wall" parent="Walls" instance=ExtResource("6_kwws6")]
 position = Vector2(3200, 0)
 rotation = 1.5708
 scale = Vector2(185, 1)
+metadata/_edit_lock_ = true
 
 [node name="Bottom Wall" parent="Walls" instance=ExtResource("6_kwws6")]
 position = Vector2(0, 1800)
 scale = Vector2(325, 1)
+metadata/_edit_lock_ = true
 
 [node name="Powers" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="Power" parent="Powers" instance=ExtResource("5_ukpnx")]
 position = Vector2(-1136, 2)
@@ -56,6 +70,7 @@ position = Vector2(-1160, -648)
 position = Vector2(1168, -648)
 
 [node name="Enemies" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="Enemy" parent="Enemies" instance=ExtResource("4_ikbqd")]
 position = Vector2(-13, -2156)
@@ -83,3 +98,4 @@ position = Vector2(3497, -11)
 
 [node name="Player" parent="." instance=ExtResource("1_lso4r")]
 position = Vector2(0, 800)
+metadata/_edit_lock_ = true

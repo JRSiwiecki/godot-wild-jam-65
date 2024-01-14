@@ -1,14 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxmnkjdvnqweh"]
+[gd_scene load_steps=4 format=3 uid="uid://cxmnkjdvnqweh"]
 
 [ext_resource type="Texture2D" uid="uid://cxb6jqt7kpeh0" path="res://assets/sprites/power.png" id="1_21drx"]
+[ext_resource type="Script" path="res://scripts/Power.gd" id="1_jjwmg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qvcp8"]
 size = Vector2(70, 134)
 
 [node name="Power" type="Area2D"]
+script = ExtResource("1_jjwmg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_21drx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_qvcp8")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
