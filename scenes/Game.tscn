@@ -38,7 +38,8 @@ scale = Vector2(195, 1)
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Enemy" parent="Enemies" instance=ExtResource("4_ikbqd")]
-position = Vector2(-3, -772)
+position = Vector2(-7, -1268)
+collision_mask = 2
 
 [node name="Powers" type="Node2D" parent="."]
 
