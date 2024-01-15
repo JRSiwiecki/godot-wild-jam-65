@@ -12,10 +12,17 @@ var tower_position : Vector2
 
 func _ready() -> void:
 	tower = get_node("/root/Game/Tower")
+	
+	if !tower:
+		return
+	
 	tower_position = tower.global_position
 
 func _physics_process(_delta: float) -> void:
 	velocity = Vector2.ZERO
+	
+	if !tower:
+		return
 	
 	var target_position : Vector2 = (tower_position - global_position).normalized()
 	

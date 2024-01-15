@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d2mxwcxps1t1w"]
+[gd_scene load_steps=8 format=3 uid="uid://d2mxwcxps1t1w"]
 
 [ext_resource type="Texture2D" uid="uid://fopmfsnrkucm" path="res://assets/sprites/tower.png" id="1_mlpp4"]
 [ext_resource type="Script" path="res://scripts/Tower.gd" id="1_ok81d"]
@@ -13,10 +13,15 @@ size = Vector2(545, 1054)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4t15r"]
 size = Vector2(128, 64)
 
-[node name="Tower" type="StaticBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_hc4ao"]
+radius = 1074.12
+
+[node name="Tower" type="StaticBody2D" node_paths=PackedStringArray("aoe_attack_area", "aoe_attack_timer")]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_ok81d")
+aoe_attack_area = NodePath("AOE Attack")
+aoe_attack_timer = NodePath("AOE Attack/AOE Attack Timer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_mlpp4")
@@ -39,6 +44,7 @@ metadata/_edit_lock_ = true
 [node name="Power Deposit Area" type="Area2D" parent="."]
 position = Vector2(0, 666)
 scale = Vector2(3, 3)
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Power Deposit Area"]
 texture = ExtResource("3_q833a")
@@ -48,5 +54,22 @@ metadata/_edit_lock_ = true
 shape = SubResource("RectangleShape2D_4t15r")
 metadata/_edit_lock_ = true
 
+[node name="AOE Attack" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+metadata/_edit_lock_ = true
+
+[node name="AOE Attack Timer" type="Timer" parent="AOE Attack"]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AOE Attack"]
+shape = SubResource("CircleShape2D_hc4ao")
+debug_color = Color(0.890196, 0.294118, 0.352941, 0.419608)
+metadata/_edit_lock_ = true
+
 [connection signal="body_entered" from="Damage Area" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Damage Area" to="." method="_on_damage_area_body_entered"]
 [connection signal="body_entered" from="Power Deposit Area" to="." method="_on_power_deposit_area_body_entered"]
+[connection signal="timeout" from="AOE Attack/AOE Attack Timer" to="." method="_on_aoe_attack_timer_timeout"]

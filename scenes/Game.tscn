@@ -41,7 +41,7 @@ curve = SubResource("Curve2D_86xhg")
 metadata/_edit_lock_ = true
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Enemy Spawn Path"]
-position = Vector2(2, -2079)
+position = Vector2(1.9921, -2079)
 rotation = -0.000857143
 progress = 22107.0
 
@@ -98,7 +98,6 @@ wait_time = 3.0
 autostart = true
 
 [node name="Enemy Spawn Timer" type="Timer" parent="."]
-wait_time = 3.0
 autostart = true
 
 [connection signal="collected" from="." to="UI" method="_on_game_collected"]
