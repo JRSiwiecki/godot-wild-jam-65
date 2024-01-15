@@ -12,17 +12,18 @@ var tower_position : Vector2
 
 func _ready() -> void:
 	tower = get_node("/root/Game/Tower")
-	tower_position = tower.position
+	tower_position = tower.global_position
 
 func _physics_process(delta: float) -> void:
 	velocity = Vector2.ZERO
 	
-	var target_position : Vector2 = (tower_position - position).normalized()
+	var target_position : Vector2 = (tower_position - global_position).normalized()
 	
-	if position.distance_to(tower_position) > 5:
+	if global_position.distance_to(tower_position) > 5:
 		velocity = target_position * speed
 		move_and_slide()
 	
 
 func death() -> void:
 	died.emit()
+	queue_free()

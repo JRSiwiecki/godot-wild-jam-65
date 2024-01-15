@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://hjag5isbtsj5"]
+[gd_scene load_steps=8 format=3 uid="uid://hjag5isbtsj5"]
 
 [ext_resource type="Script" path="res://scripts/Game.gd" id="1_dgiqo"]
 [ext_resource type="PackedScene" uid="uid://rgqlua35cw05" path="res://scenes/Player.tscn" id="1_lso4r"]
@@ -7,17 +7,26 @@
 [ext_resource type="PackedScene" uid="uid://cxmnkjdvnqweh" path="res://scenes/Power.tscn" id="5_ukpnx"]
 [ext_resource type="PackedScene" uid="uid://cfmjfdau01t6k" path="res://scenes/Wall.tscn" id="6_kwws6"]
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("enemy_group", "power_group", "spawn_area", "tower")]
+[sub_resource type="Curve2D" id="Curve2D_86xhg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -4, -2073, 0, 0, 0, 0, 3496, -2052, 0, 0, 0, 0, 3469, 1991, 0, 0, 0, 0, -4, 1964, 0, 0, 0, 0, -3489, 2029, 0, 0, 0, 0, -3495, -5, 0, 0, 0, 0, -3498, -2076, 0, 0, 0, 0, 2, -2079)
+}
+point_count = 8
+
+[node name="Game" type="Node2D" node_paths=PackedStringArray("enemy_group", "power_group", "spawn_area", "enemy_spawn_path", "enemy_spawn_marker", "tower")]
 script = ExtResource("1_dgiqo")
 enemy_scene = ExtResource("4_ikbqd")
 power_scene = ExtResource("5_ukpnx")
 enemy_group = NodePath("Enemies")
 power_group = NodePath("Powers")
 spawn_area = NodePath("Spawn Area")
+enemy_spawn_path = NodePath("Enemy Spawn Path/PathFollow2D")
+enemy_spawn_marker = NodePath("Enemy Spawn Path/PathFollow2D/Marker2D")
 tower = NodePath("Tower")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.4, 0.4)
+position = Vector2(-5, 0)
+zoom = Vector2(0.3, 0.3)
 
 [node name="Tower" parent="." instance=ExtResource("3_1fc8h")]
 metadata/_edit_lock_ = true
@@ -58,31 +67,7 @@ metadata/_edit_lock_ = true
 metadata/_edit_lock_ = true
 
 [node name="Enemies" type="Node2D" parent="."]
-metadata/_edit_lock_ = true
-
-[node name="Enemy" parent="Enemies" instance=ExtResource("4_ikbqd")]
-position = Vector2(-13, -2156)
-
-[node name="Enemy5" parent="Enemies" instance=ExtResource("4_ikbqd")]
-position = Vector2(-3537, -2184)
-
-[node name="Enemy6" parent="Enemies" instance=ExtResource("4_ikbqd")]
-position = Vector2(3692, -2218)
-
-[node name="Enemy7" parent="Enemies" instance=ExtResource("4_ikbqd")]
-position = Vector2(3500, 2132)
-
-[node name="Enemy8" parent="Enemies" instance=ExtResource("4_ikbqd")]
-position = Vector2(-3481, 2138)
-
-[node name="Enemy2" parent="Enemies" instance=ExtResource("4_ikbqd")]
-position = Vector2(-3568, -19)
-
-[node name="Enemy3" parent="Enemies" instance=ExtResource("4_ikbqd")]
-position = Vector2(-9, 2079)
-
-[node name="Enemy4" parent="Enemies" instance=ExtResource("4_ikbqd")]
-position = Vector2(3497, -11)
+position = Vector2(-4, -2199)
 
 [node name="Player" parent="." instance=ExtResource("1_lso4r")]
 position = Vector2(0, 800)
@@ -91,4 +76,19 @@ metadata/_edit_lock_ = true
 [node name="Power Spawn Timer" type="Timer" parent="."]
 autostart = true
 
+[node name="Enemy Spawn Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Enemy Spawn Path" type="Path2D" parent="."]
+scale = Vector2(1.2, 1.2)
+curve = SubResource("Curve2D_86xhg")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Enemy Spawn Path"]
+position = Vector2(2, -2079)
+rotation = -0.000857143
+progress = 22107.0
+
+[node name="Marker2D" type="Marker2D" parent="Enemy Spawn Path/PathFollow2D"]
+
 [connection signal="timeout" from="Power Spawn Timer" to="." method="_on_power_spawn_timer_timeout"]
+[connection signal="timeout" from="Enemy Spawn Timer" to="." method="_on_enemy_spawn_timer_timeout"]

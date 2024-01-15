@@ -9,7 +9,8 @@ signal enemy_spawned
 @export var enemy_group : Node2D
 @export var power_group : Node2D
 @export var spawn_area : Area2D
-
+@export var enemy_spawn_path : PathFollow2D
+@export var enemy_spawn_marker : Marker2D
 @export var tower : Tower
 
 func _ready() -> void:
@@ -21,6 +22,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_power_spawn_timer_timeout() -> void:
 	spawn_power()
+
+func _on_enemy_spawn_timer_timeout() -> void:
+	spawn_enemy()
 
 func spawn_power() -> void:
 	# Instantiate new power scene
@@ -38,4 +42,16 @@ func spawn_power() -> void:
 	power_spawned.emit()
 
 func spawn_enemy() -> void:
-	pass
+	# Instantiate new enemy scene
+	var enemy = enemy_scene.instantiate()
+	enemy_group.add_child(enemy)
+	
+	# Randomize spawn position
+	enemy_spawn_path.progress_ratio = randf()
+	var random_enemy_position = enemy_spawn_marker.global_position
+	
+	print("spawn at: ", random_enemy_position)
+	
+	# Set random position and emit enemy spawned signal
+	enemy.global_position = random_enemy_position
+	enemy_spawned.emit()

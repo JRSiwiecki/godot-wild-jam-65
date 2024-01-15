@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d2mxwcxps1t1w"]
 
-[ext_resource type="Script" path="res://scenes/Tower.gd" id="1_bpbdr"]
 [ext_resource type="Texture2D" uid="uid://fopmfsnrkucm" path="res://assets/sprites/tower.png" id="1_mlpp4"]
+[ext_resource type="Script" path="res://scripts/Tower.gd" id="1_ok81d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dy2on"]
 size = Vector2(510, 1024)
@@ -12,7 +12,7 @@ size = Vector2(545, 1054)
 [node name="Tower" type="StaticBody2D"]
 collision_layer = 3
 collision_mask = 3
-script = ExtResource("1_bpbdr")
+script = ExtResource("1_ok81d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_mlpp4")
