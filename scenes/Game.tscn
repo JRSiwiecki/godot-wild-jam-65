@@ -14,7 +14,7 @@ _data = {
 }
 point_count = 8
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("enemy_group", "power_group", "spawn_area", "enemy_spawn_path", "enemy_spawn_marker", "tower")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("enemy_group", "power_group", "spawn_area", "enemy_spawn_path", "enemy_spawn_marker", "tower", "player")]
 script = ExtResource("1_dgiqo")
 enemy_scene = ExtResource("4_ikbqd")
 power_scene = ExtResource("5_ukpnx")
@@ -24,9 +24,11 @@ spawn_area = NodePath("Spawn Area")
 enemy_spawn_path = NodePath("Enemy Spawn Path/PathFollow2D")
 enemy_spawn_marker = NodePath("Enemy Spawn Path/PathFollow2D/Marker2D")
 tower = NodePath("Tower")
+player = NodePath("Player")
 
-[node name="UI" parent="." node_paths=PackedStringArray("tower") instance=ExtResource("4_7l8dh")]
+[node name="UI" parent="." node_paths=PackedStringArray("tower", "player") instance=ExtResource("4_7l8dh")]
 tower = NodePath("../Tower")
+player = NodePath("../Player")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-5, 0)
@@ -99,6 +101,7 @@ autostart = true
 wait_time = 3.0
 autostart = true
 
+[connection signal="collected" from="." to="UI" method="_on_game_collected"]
 [connection signal="damaged" from="Tower" to="UI" method="_on_tower_damaged"]
 [connection signal="timeout" from="Power Spawn Timer" to="." method="_on_power_spawn_timer_timeout"]
 [connection signal="timeout" from="Enemy Spawn Timer" to="." method="_on_enemy_spawn_timer_timeout"]

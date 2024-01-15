@@ -3,6 +3,8 @@ extends Node2D
 signal power_spawned
 signal enemy_spawned
 
+signal collected
+
 @export var enemy_scene : PackedScene
 @export var power_scene : PackedScene
 
@@ -12,6 +14,7 @@ signal enemy_spawned
 @export var enemy_spawn_path : PathFollow2D
 @export var enemy_spawn_marker : Marker2D
 @export var tower : Tower
+@export var player : Player
 
 func _ready() -> void:
 	randomize()
@@ -25,6 +28,11 @@ func _on_power_spawn_timer_timeout() -> void:
 
 func _on_enemy_spawn_timer_timeout() -> void:
 	spawn_enemy()
+
+func _on_power_collected() -> void:
+	player.power_carried += Globals.power_per_battery
+	player.power_carried = clampi(player.power_carried, 0, player.CARRY_CAPACITY)
+	collected.emit()
 
 func spawn_power() -> void:
 	# Instantiate new power scene
@@ -40,6 +48,9 @@ func spawn_power() -> void:
 	# Set random position and emit power spawned signal
 	power.position = random_power_position
 	power_spawned.emit()
+	
+	# Connect power collected signal
+	power.collected.connect(_on_power_collected)
 
 func spawn_enemy() -> void:
 	# Instantiate new enemy scene
