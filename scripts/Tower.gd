@@ -3,6 +3,7 @@ extends StaticBody2D
 class_name Tower
 
 signal damaged
+signal powered
 
 @export var MAX_HEALTH : int = 100
 

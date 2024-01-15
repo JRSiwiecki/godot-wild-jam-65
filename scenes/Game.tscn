@@ -85,12 +85,11 @@ metadata/_edit_lock_ = true
 position = Vector2(-4, -2199)
 metadata/_edit_lock_ = true
 
-[node name="Player" parent="." instance=ExtResource("1_lso4r")]
-position = Vector2(0, 800)
-metadata/_edit_lock_ = true
-
 [node name="Tower" parent="." instance=ExtResource("3_1fc8h")]
 metadata/_edit_lock_ = true
+
+[node name="Player" parent="." instance=ExtResource("1_lso4r")]
+position = Vector2(0, -1168)
 
 [node name="Power Spawn Timer" type="Timer" parent="."]
 wait_time = 3.0
