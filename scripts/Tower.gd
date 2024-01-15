@@ -20,3 +20,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		
 		body.death()
 		damaged.emit()
+
+
+func _on_power_deposit_area_body_entered(body: Node2D) -> void:
+	if body is Player:
+		power += body.power_carried
+		body.power_carried = 0
+		powered.emit()

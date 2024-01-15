@@ -23,17 +23,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().quit()
 
-func _on_power_spawn_timer_timeout() -> void:
-	spawn_power()
-
-func _on_enemy_spawn_timer_timeout() -> void:
-	spawn_enemy()
-
-func _on_power_collected() -> void:
-	player.power_carried += Globals.power_per_battery
-	player.power_carried = clampi(player.power_carried, 0, player.CARRY_CAPACITY)
-	collected.emit()
-
 func spawn_power() -> void:
 	# Instantiate new power scene
 	var power = power_scene.instantiate()
@@ -64,3 +53,17 @@ func spawn_enemy() -> void:
 	# Set random position and emit enemy spawned signal
 	enemy.global_position = random_enemy_position
 	enemy_spawned.emit()
+
+func _on_power_spawn_timer_timeout() -> void:
+	spawn_power()
+
+func _on_enemy_spawn_timer_timeout() -> void:
+	spawn_enemy()
+
+func _on_power_collected() -> void:
+	player.power_carried += Globals.power_per_battery
+	player.power_carried = clampi(player.power_carried, 0, player.CARRY_CAPACITY)
+	collected.emit()
+
+func _on_tower_powered() -> void:
+	collected.emit()

@@ -103,5 +103,7 @@ autostart = true
 
 [connection signal="collected" from="." to="UI" method="_on_game_collected"]
 [connection signal="damaged" from="Tower" to="UI" method="_on_tower_damaged"]
+[connection signal="powered" from="Tower" to="." method="_on_tower_powered"]
+[connection signal="powered" from="Tower" to="UI" method="_on_tower_powered"]
 [connection signal="timeout" from="Power Spawn Timer" to="." method="_on_power_spawn_timer_timeout"]
 [connection signal="timeout" from="Enemy Spawn Timer" to="." method="_on_enemy_spawn_timer_timeout"]

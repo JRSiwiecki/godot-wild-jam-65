@@ -12,13 +12,6 @@ func _ready() -> void:
 	update_power_label()
 	update_carrying_power_label()
 
-func _on_tower_damaged() -> void:
-	update_health_label()
-
-# Power collected
-func _on_game_collected() -> void:
-	update_carrying_power_label()
-
 func update_health_label() -> void:
 	tower_health_label.text = "Tower Health: " + str(tower.current_health) + " / " + str(tower.MAX_HEALTH)
 
@@ -27,3 +20,13 @@ func update_power_label() -> void:
 
 func update_carrying_power_label() -> void:
 	carrying_power_label.text = "Carrying Power: " + str(player.power_carried) + " / 50"
+
+func _on_tower_damaged() -> void:
+	update_health_label()
+
+# Power collected
+func _on_game_collected() -> void:
+	update_carrying_power_label()
+
+func _on_tower_powered() -> void:
+	update_power_label()
