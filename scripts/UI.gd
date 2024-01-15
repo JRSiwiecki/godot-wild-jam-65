@@ -19,7 +19,7 @@ func update_power_label() -> void:
 	tower_power_label.text = "Tower Power: " + str(tower.power) + " / 100"
 
 func update_carrying_power_label() -> void:
-	carrying_power_label.text = "Carrying Power: " + str(player.power_carried) + " / 50"
+	carrying_power_label.text = "Carrying Power: " + str(player.power_carried) + " / " + str(player.CARRY_CAPACITY)
 
 func _on_tower_damaged() -> void:
 	update_health_label()

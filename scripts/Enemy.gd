@@ -14,7 +14,7 @@ func _ready() -> void:
 	tower = get_node("/root/Game/Tower")
 	tower_position = tower.global_position
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	velocity = Vector2.ZERO
 	
 	var target_position : Vector2 = (tower_position - global_position).normalized()
