@@ -50,8 +50,6 @@ func spawn_enemy() -> void:
 	enemy_spawn_path.progress_ratio = randf()
 	var random_enemy_position = enemy_spawn_marker.global_position
 	
-	print("spawn at: ", random_enemy_position)
-	
 	# Set random position and emit enemy spawned signal
 	enemy.global_position = random_enemy_position
 	enemy_spawned.emit()
