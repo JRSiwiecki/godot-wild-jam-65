@@ -12,12 +12,25 @@ signal powered
 
 var current_health : int = MAX_HEALTH
 var power : int = 0
+
+# Attack variables
 var can_aoe_attack : bool = true
+var can_laser_attack : bool = true
+var can_missile_attack : bool = true
+var can_spiral_attack : bool = true
 
 func _process(delta: float) -> void:
-	if can_aoe_attack:
-		print("aoe")
+	if can_aoe_attack and power >= 0:
 		aoe_attack()
+	
+	if can_laser_attack and power >= 25:
+		laser_attack()
+	
+	if can_missile_attack and power >= 50:
+		missile_attack()
+	
+	if can_spiral_attack and power >= 75:
+		spiral_attack()
 
 func aoe_attack() -> void:
 	# Attack all enemies in area
@@ -28,6 +41,15 @@ func aoe_attack() -> void:
 	# Reset AOE Attack
 	aoe_attack_timer.start()
 	can_aoe_attack = false
+
+func laser_attack() -> void:
+	pass
+
+func missile_attack() -> void:
+	pass
+
+func spiral_attack() -> void:
+	pass
 
 func _on_damage_area_body_entered(body: Node2D) -> void:
 	if body is Enemy:
