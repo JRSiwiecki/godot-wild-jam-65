@@ -1,3 +1,3 @@
 extends Node
 
-var power_per_battery : int = 20
+var power_per_battery : int = 25

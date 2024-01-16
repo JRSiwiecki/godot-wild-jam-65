@@ -5,7 +5,7 @@ class_name Missile
 @export var explosion_area : Area2D
 @export var life_timer : Timer
 
-@export var missile_speed : float = 750.0
+@export var missile_speed : float = 1000.0
 
 var target : Node2D
 var direction : Vector2
