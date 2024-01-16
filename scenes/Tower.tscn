@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d2mxwcxps1t1w"]
+[gd_scene load_steps=9 format=3 uid="uid://d2mxwcxps1t1w"]
 
 [ext_resource type="Texture2D" uid="uid://fopmfsnrkucm" path="res://assets/sprites/tower.png" id="1_mlpp4"]
 [ext_resource type="Script" path="res://scripts/Tower.gd" id="1_ok81d"]
@@ -16,12 +16,18 @@ size = Vector2(128, 64)
 [sub_resource type="CircleShape2D" id="CircleShape2D_hc4ao"]
 radius = 1074.12
 
-[node name="Tower" type="StaticBody2D" node_paths=PackedStringArray("aoe_attack_area", "aoe_attack_timer")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fadod"]
+size = Vector2(50, 3500)
+
+[node name="Tower" type="StaticBody2D" node_paths=PackedStringArray("aoe_attack_area", "aoe_attack_timer", "laser_attack_area", "laser_attack_timer", "laser_attack_raycast")]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_ok81d")
 aoe_attack_area = NodePath("AOE Attack")
 aoe_attack_timer = NodePath("AOE Attack/AOE Attack Timer")
+laser_attack_area = NodePath("Laser Attack")
+laser_attack_timer = NodePath("Laser Attack/Laser Attack Timer")
+laser_attack_raycast = NodePath("Laser Attack/Laser Raycast")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_mlpp4")
@@ -69,7 +75,26 @@ shape = SubResource("CircleShape2D_hc4ao")
 debug_color = Color(0.890196, 0.294118, 0.352941, 0.419608)
 metadata/_edit_lock_ = true
 
-[connection signal="body_entered" from="Damage Area" to="." method="_on_area_2d_body_entered"]
+[node name="Laser Attack" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+metadata/_edit_lock_ = true
+
+[node name="Laser Attack Timer" type="Timer" parent="Laser Attack"]
+one_shot = true
+autostart = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Laser Attack"]
+scale = Vector2(117.52, 1)
+shape = SubResource("RectangleShape2D_fadod")
+debug_color = Color(0.894118, 0.188235, 0.643137, 0.419608)
+metadata/_edit_lock_ = true
+
+[node name="Laser Raycast" type="RayCast2D" parent="Laser Attack"]
+collision_mask = 2
+metadata/_edit_lock_ = true
+
 [connection signal="body_entered" from="Damage Area" to="." method="_on_damage_area_body_entered"]
 [connection signal="body_entered" from="Power Deposit Area" to="." method="_on_power_deposit_area_body_entered"]
 [connection signal="timeout" from="AOE Attack/AOE Attack Timer" to="." method="_on_aoe_attack_timer_timeout"]
+[connection signal="timeout" from="Laser Attack/Laser Attack Timer" to="." method="_on_laser_attack_timer_timeout"]
