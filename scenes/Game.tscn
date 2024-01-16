@@ -26,9 +26,10 @@ enemy_spawn_marker = NodePath("Enemy Spawn Path/PathFollow2D/Marker2D")
 tower = NodePath("Tower")
 player = NodePath("Player")
 
-[node name="UI" parent="." node_paths=PackedStringArray("tower", "player") instance=ExtResource("4_7l8dh")]
+[node name="UI" parent="." node_paths=PackedStringArray("tower", "player", "game") instance=ExtResource("4_7l8dh")]
 tower = NodePath("../Tower")
 player = NodePath("../Player")
+game = NodePath("..")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-5, 0)
@@ -102,6 +103,7 @@ wait_time = 0.5
 autostart = true
 
 [connection signal="collected" from="." to="UI" method="_on_game_collected"]
+[connection signal="enemy_killed" from="." to="UI" method="_on_game_enemy_killed"]
 [connection signal="damaged" from="Tower" to="UI" method="_on_tower_damaged"]
 [connection signal="powered" from="Tower" to="." method="_on_tower_powered"]
 [connection signal="powered" from="Tower" to="UI" method="_on_tower_powered"]

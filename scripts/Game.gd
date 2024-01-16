@@ -1,8 +1,11 @@
 extends Node2D
 
+class_name Game
+
 signal power_spawned
 signal enemy_spawned
 
+signal enemy_killed
 signal collected
 
 @export var enemy_scene : PackedScene
@@ -15,6 +18,8 @@ signal collected
 @export var enemy_spawn_marker : Marker2D
 @export var tower : Tower
 @export var player : Player
+
+var enemies_killed : int
 
 func _ready() -> void:
 	randomize()
@@ -53,6 +58,9 @@ func spawn_enemy() -> void:
 	# Set random position and emit enemy spawned signal
 	enemy.global_position = random_enemy_position
 	enemy_spawned.emit()
+	
+	# Connect enemy death signal
+	enemy.died.connect(_on_enemy_killed)
 
 func _on_power_spawn_timer_timeout() -> void:
 	spawn_power()
@@ -64,6 +72,10 @@ func _on_power_collected() -> void:
 	player.power_carried += Globals.power_per_battery
 	player.power_carried = clampi(player.power_carried, 0, player.CARRY_CAPACITY)
 	collected.emit()
+
+func _on_enemy_killed() -> void:
+	enemies_killed += 1
+	enemy_killed.emit()
 
 func _on_tower_powered() -> void:
 	collected.emit()
