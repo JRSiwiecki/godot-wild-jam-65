@@ -105,7 +105,7 @@ one_shot = true
 autostart = true
 
 [node name="Drain Power Timer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 0.3
 autostart = true
 
 [node name="No Power Timer" type="Timer" parent="."]

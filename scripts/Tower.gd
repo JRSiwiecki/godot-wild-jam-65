@@ -20,7 +20,7 @@ signal drained
 
 @export var max_health : int = 100
 @export var damage_per_enemy : int = 25
-@export var power_drain : int = 20
+@export var power_drain : int = 1
 
 
 enum POWER_LEVELS { NO_POWER = 0, LOW_POWER = 25, 
