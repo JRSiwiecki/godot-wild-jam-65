@@ -15,9 +15,15 @@ signal powered
 @export var missile_scene : PackedScene
 @export var missile_attack_timer : Timer
 
-@export var MAX_HEALTH : int = 100
+@export var max_health : int = 100
+@export var damage_per_enemy : int = 25
 
-var current_health : int = MAX_HEALTH
+
+enum POWER_LEVELS { NO_POWER = 0, LOW_POWER = 25, 
+					MID_POWER = 50, HIGH_POWER = 75, 
+					OVERLOAD_POWER = 100}
+
+var current_health : int = max_health
 var power : int = 0
 
 # Attack variables
@@ -27,16 +33,16 @@ var can_missile_attack : bool = true
 var can_spiral_attack : bool = true
 
 func _process(_delta: float) -> void:
-	if can_aoe_attack and power >= 0:
+	if can_aoe_attack and power >= POWER_LEVELS.NO_POWER:
 		aoe_attack()
 	
-	if can_laser_attack and power >= 25:
+	if can_laser_attack and power >= POWER_LEVELS.LOW_POWER:
 		laser_attack()
 	
-	if can_missile_attack and power >= 50:
+	if can_missile_attack and power >= POWER_LEVELS.MID_POWER:
 		missile_attack()
 	
-	if can_spiral_attack and power >= 75:
+	if can_spiral_attack and power >= POWER_LEVELS.HIGH_POWER:
 		spiral_attack()
 
 func aoe_attack() -> void:
@@ -108,7 +114,7 @@ func find_closest_enemy() -> Node2D:
 
 func _on_damage_area_body_entered(body: Node2D) -> void:
 	if body is Enemy:
-		current_health -= 25
+		current_health -= damage_per_enemy
 		
 		if current_health <= 0:
 			queue_free()
