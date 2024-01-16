@@ -16,7 +16,7 @@ func _ready() -> void:
 	update_enemies_killed_label()
 
 func update_health_label() -> void:
-	tower_health_label.text = "Tower Health: " + str(tower.current_health) + " / " + str(tower.MAX_HEALTH)
+	tower_health_label.text = "Tower Health: " + str(tower.current_health) + " / " + str(tower.max_health)
 
 func update_power_label() -> void:
 	tower_power_label.text = "Tower Power: " + str(tower.power) + " / 100"
