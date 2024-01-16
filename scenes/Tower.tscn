@@ -20,7 +20,7 @@ radius = 1074.12
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fadod"]
 size = Vector2(50, 3500)
 
-[node name="Tower" type="StaticBody2D" node_paths=PackedStringArray("aoe_attack_area", "aoe_attack_timer", "laser_attack_area", "laser_attack_timer", "laser_attack_raycast", "missile_attack_timer")]
+[node name="Tower" type="StaticBody2D" node_paths=PackedStringArray("aoe_attack_area", "aoe_attack_timer", "laser_attack_area", "laser_attack_timer", "laser_attack_raycast", "missile_attack_timer", "no_power_timer")]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_ok81d")
@@ -31,6 +31,7 @@ laser_attack_timer = NodePath("Laser Attack Timer")
 laser_attack_raycast = NodePath("Laser Attack/Laser Raycast")
 missile_scene = ExtResource("2_tr6g3")
 missile_attack_timer = NodePath("Missile Attack Timer")
+no_power_timer = NodePath("No Power Timer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_mlpp4")
@@ -103,8 +104,18 @@ wait_time = 2.0
 one_shot = true
 autostart = true
 
+[node name="Drain Power Timer" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[node name="No Power Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="body_entered" from="Damage Area" to="." method="_on_damage_area_body_entered"]
 [connection signal="body_entered" from="Power Deposit Area" to="." method="_on_power_deposit_area_body_entered"]
 [connection signal="timeout" from="AOE Attack Timer" to="." method="_on_aoe_attack_timer_timeout"]
 [connection signal="timeout" from="Laser Attack Timer" to="." method="_on_laser_attack_timer_timeout"]
 [connection signal="timeout" from="Missile Attack Timer" to="." method="_on_missile_attack_timer_timeout"]
+[connection signal="timeout" from="Drain Power Timer" to="." method="_on_drain_power_timer_timeout"]
+[connection signal="timeout" from="No Power Timer" to="." method="_on_no_power_timer_timeout"]

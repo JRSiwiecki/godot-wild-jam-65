@@ -4,6 +4,7 @@ class_name Tower
 
 signal damaged
 signal powered
+signal drained
 
 @export var aoe_attack_area : Area2D
 @export var aoe_attack_timer : Timer
@@ -15,8 +16,11 @@ signal powered
 @export var missile_scene : PackedScene
 @export var missile_attack_timer : Timer
 
+@export var no_power_timer : Timer
+
 @export var max_health : int = 100
 @export var damage_per_enemy : int = 25
+@export var power_drain : int = 20
 
 
 enum POWER_LEVELS { NO_POWER = 0, LOW_POWER = 25, 
@@ -24,7 +28,7 @@ enum POWER_LEVELS { NO_POWER = 0, LOW_POWER = 25,
 					OVERLOAD_POWER = 100}
 
 var current_health : int = max_health
-var power : int = 0
+var power : int = 25
 
 # Attack variables
 var can_aoe_attack : bool = true
@@ -124,11 +128,11 @@ func _on_damage_area_body_entered(body: Node2D) -> void:
 		damaged.emit()
 
 func _on_power_deposit_area_body_entered(body: Node2D) -> void:
-	if body is Player:
+	if body is Player and body.power_carried > 0:
 		power += body.power_carried
 		body.power_carried = 0
+		no_power_timer.stop()
 		powered.emit()
-
 
 func _on_aoe_attack_timer_timeout() -> void:
 	can_aoe_attack = true
@@ -140,3 +144,17 @@ func _on_laser_attack_timer_timeout() -> void:
 
 func _on_missile_attack_timer_timeout() -> void:
 	can_missile_attack = true
+
+
+func _on_no_power_timer_timeout() -> void:
+	queue_free()
+	get_tree().quit()
+
+
+func _on_drain_power_timer_timeout() -> void:
+	power = max(power - power_drain, 0)
+	
+	if power <= 0:
+		no_power_timer.start()
+	
+	drained.emit()

@@ -39,3 +39,6 @@ func _on_tower_powered() -> void:
 
 func _on_game_enemy_killed() -> void:
 	update_enemies_killed_label()
+
+func _on_tower_drained() -> void:
+	update_power_label()
