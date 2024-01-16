@@ -33,7 +33,7 @@ func _process(_delta: float) -> void:
 	if can_laser_attack and power >= 25:
 		laser_attack()
 	
-	if can_missile_attack and power >= 0:
+	if can_missile_attack and power >= 50:
 		missile_attack()
 	
 	if can_spiral_attack and power >= 75:
@@ -50,15 +50,8 @@ func aoe_attack() -> void:
 	can_aoe_attack = false
 
 func laser_attack() -> void:
-	# Find all enemies in laser range
-	var enemies : Array = []
-	
-	for body in laser_attack_area.get_overlapping_bodies():
-		if body is Enemy:
-			enemies.append(body)
-	
 	# Find closest enemy
-	var closest_enemy : Node2D = find_closest_enemy(enemies)
+	var closest_enemy : Node2D = find_closest_enemy()
 	
 	# No enemy found
 	if !closest_enemy:
@@ -76,12 +69,32 @@ func laser_attack() -> void:
 	can_laser_attack = false
 
 func missile_attack() -> void:
-	pass
+	# Find closest enemy
+	var closest_enemy : Node2D = find_closest_enemy()
+	
+	# No enemy found
+	if !closest_enemy:
+		return
+	
+	# Fire missile
+	var missile : Missile = missile_scene.instantiate()
+	owner.add_child(missile)
+	missile.target = closest_enemy
+	
+	missile_attack_timer.start()
+	can_missile_attack = false
 
 func spiral_attack() -> void:
 	pass
 
-func find_closest_enemy(enemies : Array) -> Node2D:
+func find_closest_enemy() -> Node2D:
+	# Find all enemies in laser range
+	var enemies : Array = []
+	
+	for body in laser_attack_area.get_overlapping_bodies():
+		if body is Enemy:
+			enemies.append(body)
+	
 	var closest_enemy = null
 	var shortest_distance : float = 100000.0
 	for enemy in enemies:

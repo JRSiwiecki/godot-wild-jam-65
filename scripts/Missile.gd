@@ -5,10 +5,18 @@ class_name Missile
 @export var explosion_area : Area2D
 @export var life_timer : Timer
 
-@export var missile_speed : float = 300.0
+@export var missile_speed : float = 750.0
+
+var target : Node2D
+var direction : Vector2
 
 func _physics_process(delta: float) -> void:
-	position += transform.x * missile_speed * delta
+	if !direction:
+		direction = (target.global_position - global_position).normalized()
+		look_at(target.global_position)
+	
+	global_position += direction * missile_speed * delta
+	
 
 func explode() -> void:
 	for body in explosion_area.get_overlapping_bodies():
