@@ -33,7 +33,7 @@ func _process(_delta: float) -> void:
 	if can_laser_attack and power >= 25:
 		laser_attack()
 	
-	if can_missile_attack and power >= 50:
+	if can_missile_attack and power >= 0:
 		missile_attack()
 	
 	if can_spiral_attack and power >= 75:
@@ -117,3 +117,7 @@ func _on_aoe_attack_timer_timeout() -> void:
 
 func _on_laser_attack_timer_timeout() -> void:
 	can_laser_attack = true
+
+
+func _on_missile_attack_timer_timeout() -> void:
+	can_missile_attack = true

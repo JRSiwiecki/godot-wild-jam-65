@@ -10,9 +10,10 @@ height = 106.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_tv65t"]
 radius = 276.147
 
-[node name="Missile" type="Area2D" node_paths=PackedStringArray("explosion_area")]
+[node name="Missile" type="Area2D" node_paths=PackedStringArray("explosion_area", "life_timer")]
 script = ExtResource("1_nbj4b")
 explosion_area = NodePath("Explosion Area")
+life_timer = NodePath("Life Timer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_2witt")
@@ -29,4 +30,10 @@ collision_mask = 3
 shape = SubResource("CircleShape2D_tv65t")
 debug_color = Color(0.533333, 0.568627, 0.0980392, 0.419608)
 
+[node name="Life Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Life Timer" to="." method="_on_life_timer_timeout"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://d2mxwcxps1t1w"]
+[gd_scene load_steps=10 format=3 uid="uid://d2mxwcxps1t1w"]
 
 [ext_resource type="Texture2D" uid="uid://fopmfsnrkucm" path="res://assets/sprites/tower.png" id="1_mlpp4"]
 [ext_resource type="Script" path="res://scripts/Tower.gd" id="1_ok81d"]
+[ext_resource type="PackedScene" uid="uid://ca4yhofngfgol" path="res://scenes/Missile.tscn" id="2_tr6g3"]
 [ext_resource type="Texture2D" uid="uid://clofdtcfvbkge" path="res://assets/sprites/tower-deposit.png" id="3_q833a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dy2on"]
@@ -28,6 +29,7 @@ aoe_attack_timer = NodePath("AOE Attack/AOE Attack Timer")
 laser_attack_area = NodePath("Laser Attack")
 laser_attack_timer = NodePath("Laser Attack/Laser Attack Timer")
 laser_attack_raycast = NodePath("Laser Attack/Laser Raycast")
+missile_scene = ExtResource("2_tr6g3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_mlpp4")
@@ -94,7 +96,12 @@ metadata/_edit_lock_ = true
 collision_mask = 2
 metadata/_edit_lock_ = true
 
+[node name="Missile Attack Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
 [connection signal="body_entered" from="Damage Area" to="." method="_on_damage_area_body_entered"]
 [connection signal="body_entered" from="Power Deposit Area" to="." method="_on_power_deposit_area_body_entered"]
 [connection signal="timeout" from="AOE Attack/AOE Attack Timer" to="." method="_on_aoe_attack_timer_timeout"]
 [connection signal="timeout" from="Laser Attack/Laser Attack Timer" to="." method="_on_laser_attack_timer_timeout"]
+[connection signal="timeout" from="Missile Attack Timer" to="." method="_on_missile_attack_timer_timeout"]
