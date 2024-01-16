@@ -12,6 +12,9 @@ signal powered
 @export var laser_attack_timer : Timer
 @export var laser_attack_raycast : RayCast2D
 
+@export var missile_scene : PackedScene
+@export var missile_attack_timer : Timer
+
 @export var MAX_HEALTH : int = 100
 
 var current_health : int = MAX_HEALTH

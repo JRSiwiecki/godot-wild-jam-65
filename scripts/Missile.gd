@@ -14,6 +14,9 @@ func explode() -> void:
 		if body is Enemy:
 			body.death()
 
-func _on_body_entered(_body: Node2D) -> void:
+func _on_body_entered(body: Node2D) -> void:
+	if body is Tower:
+		return
+	
 	explode()
 	queue_free()
