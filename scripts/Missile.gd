@@ -13,7 +13,7 @@ var direction : Vector2
 func _physics_process(delta: float) -> void:
 	# Check if target is still valid
 	if !is_instance_valid(target):
-		queue_free()
+		explode()
 	
 	if !direction:
 		direction = (target.global_position - global_position).normalized()
