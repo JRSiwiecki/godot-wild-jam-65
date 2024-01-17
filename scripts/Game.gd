@@ -6,7 +6,7 @@ signal power_spawned
 signal enemy_spawned
 
 signal enemy_killed
-signal collected(power_type : Power.POWER_TYPE)
+signal collected
 
 @export var enemy_scene : PackedScene
 @export var power_scene : PackedScene
@@ -69,8 +69,13 @@ func _on_enemy_spawn_timer_timeout() -> void:
 	spawn_enemy()
 
 func _on_power_collected(power_type : Power.POWER_TYPE) -> void:
-	print(power_type)
-	player.power_carried += Globals.power_per_normal_battery
+	# Use normal battery power for normal battery
+	# Use special battery power for any other battery
+	if power_type == Power.POWER_TYPE.POWER:
+		player.power_carried += Globals.power_per_normal_battery
+	else:
+		player.power_carried += Globals.power_per_special_battery
+	
 	player.power_carried = clampi(player.power_carried, 0, player.CARRY_CAPACITY)
 	collected.emit()
 
