@@ -34,6 +34,7 @@ func update_enemies_killed_label() -> void:
 
 func _on_tower_damaged() -> void:
 	update_health_label()
+	update_shield_label()
 
 # Power collected
 func _on_game_collected() -> void:

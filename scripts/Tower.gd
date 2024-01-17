@@ -157,7 +157,15 @@ func tower_death() -> void:
 
 func _on_damage_area_body_entered(body: Node2D) -> void:
 	if body is Enemy:
-		current_health -= damage_per_enemy
+		
+		# Use shield first
+		var leftover_damage : int = damage_per_enemy
+		if shield >= 0:
+			leftover_damage = damage_per_enemy - shield
+			shield -= damage_per_enemy
+			shield = max(shield, 0)
+		
+		current_health -= leftover_damage
 		
 		if current_health <= 0:
 			tower_death()
