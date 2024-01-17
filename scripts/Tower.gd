@@ -45,7 +45,6 @@ var power : int = 25
 var can_aoe_attack : bool = true
 var can_laser_attack : bool = true
 var can_missile_attack : bool = true
-var can_spiral_attack : bool = true
 
 func _process(_delta: float) -> void:
 	if can_aoe_attack and power >= POWER_LEVELS.NO_POWER:
@@ -56,9 +55,6 @@ func _process(_delta: float) -> void:
 	
 	if can_missile_attack and power >= POWER_LEVELS.MID_POWER:
 		missile_attack()
-	
-	if can_spiral_attack and power >= POWER_LEVELS.HIGH_POWER:
-		spiral_attack()
 
 func regenerate_health() -> void:
 	current_health += health_regen
@@ -128,9 +124,6 @@ func missile_attack() -> void:
 	
 	missile_attack_timer.start()
 	can_missile_attack = false
-
-func spiral_attack() -> void:
-	pass
 
 func find_closest_enemy() -> Node2D:
 	# Find all enemies in laser range
