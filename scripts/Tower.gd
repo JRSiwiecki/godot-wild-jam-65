@@ -29,6 +29,7 @@ enum POWER_LEVELS { NO_POWER = 0, LOW_POWER = 25,
 
 var current_health : int = max_health
 var power : int = 25
+var health_regen : int = 25
 
 # Attack variables
 var can_aoe_attack : bool = true
@@ -48,6 +49,10 @@ func _process(_delta: float) -> void:
 	
 	if can_spiral_attack and power >= POWER_LEVELS.HIGH_POWER:
 		spiral_attack()
+
+func regenerate_health() -> void:
+	current_health += health_regen
+	current_health = clampi(current_health, 0, max_health)
 
 func aoe_attack() -> void:
 	# Attack all enemies in area
