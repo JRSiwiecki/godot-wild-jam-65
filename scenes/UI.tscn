@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/UI.gd" id="1_f655f"]
 
-[node name="UI" type="Control" node_paths=PackedStringArray("tower_health_label", "tower_power_label", "carrying_power_label", "enemies_killed_label")]
+[node name="UI" type="Control" node_paths=PackedStringArray("tower_health_label", "tower_shield_label", "tower_power_label", "carrying_power_label", "enemies_killed_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_f655f")
 tower_health_label = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Tower Health")
+tower_shield_label = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Tower Shield")
 tower_power_label = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Tower Power")
 carrying_power_label = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Carrying Power")
 enemies_killed_label = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Enemies Killed")
@@ -25,6 +26,9 @@ offset_bottom = 50.0
 layout_mode = 2
 
 [node name="Tower Health" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Tower Shield" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="Tower Power" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]

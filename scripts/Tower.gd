@@ -47,9 +47,6 @@ var can_laser_attack : bool = true
 var can_missile_attack : bool = true
 var can_spiral_attack : bool = true
 
-func _ready() -> void:
-	print(aoe_attack_timer.wait_time)
-
 func _process(_delta: float) -> void:
 	if can_aoe_attack and power >= POWER_LEVELS.NO_POWER:
 		aoe_attack()
@@ -154,13 +151,16 @@ func find_closest_enemy() -> Node2D:
 	
 	return closest_enemy
 
+func tower_death() -> void:
+	queue_free()
+	get_tree().quit()
+
 func _on_damage_area_body_entered(body: Node2D) -> void:
 	if body is Enemy:
 		current_health -= damage_per_enemy
 		
-		#if current_health <= 0:
-			#queue_free()
-			#get_tree().quit()
+		if current_health <= 0:
+			tower_death()
 		
 		body.death()
 		damaged.emit()
@@ -197,14 +197,13 @@ func _on_missile_attack_timer_timeout() -> void:
 
 
 func _on_no_power_timer_timeout() -> void:
-	queue_free()
-	get_tree().quit()
+	tower_death()
 
 
 func _on_drain_power_timer_timeout() -> void:
 	power = max(power - power_drain, 0)
 	
-	if power <= 0:
+	if power <= 0 and no_power_timer.is_stopped():
 		no_power_timer.start()
 	
 	drained.emit()
