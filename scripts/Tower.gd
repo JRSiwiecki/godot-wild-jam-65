@@ -47,13 +47,13 @@ var can_laser_attack : bool = true
 var can_missile_attack : bool = true
 
 func _process(_delta: float) -> void:
-	if can_aoe_attack and power >= POWER_LEVELS.NO_POWER:
+	if can_aoe_attack and power >= POWER_LEVELS.LOW_POWER:
 		aoe_attack()
 	
-	if can_laser_attack and power >= POWER_LEVELS.LOW_POWER:
+	if can_laser_attack and power >= POWER_LEVELS.MID_POWER:
 		laser_attack()
 	
-	if can_missile_attack and power >= POWER_LEVELS.MID_POWER:
+	if can_missile_attack and power >= POWER_LEVELS.HIGH_POWER:
 		missile_attack()
 
 func regenerate_health() -> void:
