@@ -160,6 +160,8 @@ func _on_damage_area_body_entered(body: Node2D) -> void:
 		var leftover_damage : int = damage_per_enemy
 		if shield >= 0:
 			leftover_damage = damage_per_enemy - shield
+			leftover_damage = clampi(leftover_damage, 0, leftover_damage)
+			
 			shield -= damage_per_enemy
 			shield = max(shield, 0)
 		

@@ -95,7 +95,7 @@ metadata/_edit_lock_ = true
 position = Vector2(0, -1168)
 
 [node name="Power Spawn Timer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 0.5
 autostart = true
 
 [node name="Enemy Spawn Timer" type="Timer" parent="."]
