@@ -20,7 +20,7 @@ radius = 1074.12
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fadod"]
 size = Vector2(50, 3500)
 
-[node name="Tower" type="StaticBody2D" node_paths=PackedStringArray("aoe_attack_area", "aoe_attack_timer", "laser_attack_area", "laser_attack_timer", "laser_attack_raycast", "missile_attack_timer", "reduced_cooldown_timer", "no_power_timer")]
+[node name="Tower" type="StaticBody2D" node_paths=PackedStringArray("aoe_attack_area", "aoe_attack_timer", "laser_attack_area", "laser_attack_timer", "laser_attack_raycast", "laser_attack_line", "missile_attack_timer", "reduced_cooldown_timer", "no_power_timer")]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_ok81d")
@@ -29,6 +29,7 @@ aoe_attack_timer = NodePath("AOE Attack Timer")
 laser_attack_area = NodePath("Laser Attack")
 laser_attack_timer = NodePath("Laser Attack Timer")
 laser_attack_raycast = NodePath("Laser Attack/Laser Raycast")
+laser_attack_line = NodePath("Laser Attack/Laser Raycast/Line2D")
 missile_scene = ExtResource("2_tr6g3")
 missile_attack_timer = NodePath("Missile Attack Timer")
 reduced_cooldown_timer = NodePath("Reduced Cooldown Timer")
@@ -90,18 +91,19 @@ metadata/_edit_lock_ = true
 collision_mask = 2
 metadata/_edit_lock_ = true
 
+[node name="Line2D" type="Line2D" parent="Laser Attack/Laser Raycast"]
+width = 5.0
+default_color = Color(0.94902, 0.94902, 0, 1)
+
 [node name="AOE Attack Timer" type="Timer" parent="."]
-wait_time = 3.0
 one_shot = true
 autostart = true
 
 [node name="Laser Attack Timer" type="Timer" parent="."]
-wait_time = 2.5
 one_shot = true
 autostart = true
 
 [node name="Missile Attack Timer" type="Timer" parent="."]
-wait_time = 2.0
 one_shot = true
 autostart = true
 

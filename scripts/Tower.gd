@@ -12,6 +12,7 @@ signal drained
 @export var laser_attack_area : Area2D
 @export var laser_attack_timer : Timer
 @export var laser_attack_raycast : RayCast2D
+@export var laser_attack_line : Line2D
 
 @export var missile_scene : PackedScene
 @export var missile_attack_timer : Timer
@@ -27,11 +28,13 @@ signal drained
 
 @export var weapon_cooldown_ratio : float  = 2.0
 @export var aoe_attack_base_cooldown : float = 3.0
-@export var laser_attack_base_cooldown : float = 2.5
+@export var laser_attack_base_cooldown : float = 1.5
 @export var missile_attack_base_cooldown : float = 2.0
 
 @export var damage_per_enemy : int = 25
 @export var power_drain : int = 1
+
+@onready var closest_enemy : Node2D = null
 
 enum POWER_LEVELS { NO_POWER = 0, LOW_POWER = 25, 
 					MID_POWER = 50, HIGH_POWER = 75, 
@@ -46,7 +49,12 @@ var can_aoe_attack : bool = true
 var can_laser_attack : bool = true
 var can_missile_attack : bool = true
 
+func _ready() -> void:
+	reset_weapon_cooldowns()
+
 func _process(_delta: float) -> void:
+	closest_enemy = find_closest_enemy()
+	
 	if can_aoe_attack and power >= POWER_LEVELS.LOW_POWER:
 		aoe_attack()
 	
@@ -91,15 +99,16 @@ func aoe_attack() -> void:
 	can_aoe_attack = false
 
 func laser_attack() -> void:
-	# Find closest enemy
-	var closest_enemy : Node2D = find_closest_enemy()
-	
 	# No enemy found
 	if !closest_enemy:
 		return
 	
+	# Draw the laser beam
+	laser_attack_line.points = [global_position, closest_enemy.global_position]
+	
 	# Attack enemy with laser
 	laser_attack_raycast.target_position = closest_enemy.global_position
+	
 	var enemy_being_attacked : Object = laser_attack_raycast.get_collider()
 	
 	if enemy_being_attacked and enemy_being_attacked.has_method("death"):
@@ -110,9 +119,6 @@ func laser_attack() -> void:
 	can_laser_attack = false
 
 func missile_attack() -> void:
-	# Find closest enemy
-	var closest_enemy : Node2D = find_closest_enemy()
-	
 	# No enemy found
 	if !closest_enemy:
 		return
@@ -133,7 +139,6 @@ func find_closest_enemy() -> Node2D:
 		if body is Enemy:
 			enemies.append(body)
 	
-	var closest_enemy = null
 	var shortest_distance : float = 100000.0
 	for enemy in enemies:
 		var distance : float = global_position.distance_to(enemy.global_position)

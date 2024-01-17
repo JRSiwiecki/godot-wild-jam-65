@@ -11,6 +11,10 @@ var target : Node2D
 var direction : Vector2
 
 func _physics_process(delta: float) -> void:
+	# Check if target is still valid
+	if !is_instance_valid(target):
+		queue_free()
+	
 	if !direction:
 		direction = (target.global_position - global_position).normalized()
 		look_at(target.global_position)
