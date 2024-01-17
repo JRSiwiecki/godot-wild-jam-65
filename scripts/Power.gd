@@ -2,7 +2,7 @@ extends Area2D
 
 class_name Power
 
-signal collected
+signal collected(power_type : Power.POWER_TYPE)
 
 @export var sprite : Sprite2D
 
@@ -18,9 +18,24 @@ enum POWER_TYPE { POWER, HEALTH, SHIELD, SPEED }
 var power_type : POWER_TYPE
 
 func _ready() -> void:
-	change_sprite_color()
+	set_random_power_type()
+	change_sprite_texture()
 
-func change_sprite_color() -> void:
+func set_random_power_type() -> void:
+	var choice = randf()
+	
+	# 50% chance for normal power
+	# ~17% chance for health, shield, and speed each
+	if choice <= 0.5:
+		power_type = POWER_TYPE.POWER
+	elif choice <= 0.67:
+		power_type = POWER_TYPE.HEALTH
+	elif choice <= 0.83:
+		power_type = POWER_TYPE.SHIELD
+	else:
+		power_type = POWER_TYPE.SPEED
+
+func change_sprite_texture() -> void:
 	match power_type:
 		POWER_TYPE.POWER:
 			sprite.texture = power_texture
@@ -33,7 +48,7 @@ func change_sprite_color() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player and player.power_carried < player.CARRY_CAPACITY:
-		collected.emit()
+		collected.emit(power_type)
 		queue_free()
 	
 	if body is Tower:
