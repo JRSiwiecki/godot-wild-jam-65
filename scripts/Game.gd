@@ -76,14 +76,7 @@ func _on_power_collected(power_type : Power.POWER_TYPE) -> void:
 	else:
 		player.power_carried += Globals.power_per_special_battery
 	
-	match power_type:
-		Power.POWER_TYPE.HEALTH:
-			tower.regenerate_health()
-		Power.POWER_TYPE.SHIELD:
-			tower.regenerate_shield()
-		Power.POWER_TYPE.SPEED:
-			tower.reduce_weapon_cooldowns()
-	
+	player.add_power_type_carried(power_type)
 	player.power_carried = clampi(player.power_carried, 0, player.CARRY_CAPACITY)
 	collected.emit()
 

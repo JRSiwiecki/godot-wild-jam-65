@@ -16,26 +16,39 @@ signal drained
 @export var missile_scene : PackedScene
 @export var missile_attack_timer : Timer
 
+@export var reduced_cooldown_timer : Timer
+
 @export var no_power_timer : Timer
 
 @export var max_health : int = 100
+@export var max_shield : int = 50
+@export var health_regen : int = 25
+@export var shield_regen : int = 25
+
+@export var weapon_cooldown_ratio : float  = 2.0
+@export var aoe_attack_base_cooldown : float = 3.0
+@export var laser_attack_base_cooldown : float = 2.5
+@export var missile_attack_base_cooldown : float = 2.0
+
 @export var damage_per_enemy : int = 25
 @export var power_drain : int = 1
-
 
 enum POWER_LEVELS { NO_POWER = 0, LOW_POWER = 25, 
 					MID_POWER = 50, HIGH_POWER = 75, 
 					OVERLOAD_POWER = 100}
 
 var current_health : int = max_health
+var shield : int = 0
 var power : int = 25
-var health_regen : int = 25
 
 # Attack variables
 var can_aoe_attack : bool = true
 var can_laser_attack : bool = true
 var can_missile_attack : bool = true
 var can_spiral_attack : bool = true
+
+func _ready() -> void:
+	print(aoe_attack_timer.wait_time)
 
 func _process(_delta: float) -> void:
 	if can_aoe_attack and power >= POWER_LEVELS.NO_POWER:
@@ -53,6 +66,26 @@ func _process(_delta: float) -> void:
 func regenerate_health() -> void:
 	current_health += health_regen
 	current_health = clampi(current_health, 0, max_health)
+
+func regenerate_shield() -> void:
+	shield += shield_regen
+	shield = clampi(shield, 0, max_shield)
+
+func reduce_weapon_cooldowns() -> void:
+	# Don't reduce cooldowns if they are already lowered
+	if !reduced_cooldown_timer.is_stopped():
+		return
+	
+	aoe_attack_timer.wait_time = aoe_attack_base_cooldown / weapon_cooldown_ratio
+	laser_attack_timer.wait_time = laser_attack_base_cooldown / weapon_cooldown_ratio
+	missile_attack_timer.wait_time = missile_attack_base_cooldown / weapon_cooldown_ratio
+	
+	reduced_cooldown_timer.start()
+
+func reset_weapon_cooldowns() -> void:
+	aoe_attack_timer.wait_time = aoe_attack_base_cooldown
+	laser_attack_timer.wait_time = laser_attack_base_cooldown
+	missile_attack_timer.wait_time = missile_attack_base_cooldown
 
 func aoe_attack() -> void:
 	# Attack all enemies in area
@@ -125,9 +158,9 @@ func _on_damage_area_body_entered(body: Node2D) -> void:
 	if body is Enemy:
 		current_health -= damage_per_enemy
 		
-		if current_health <= 0:
-			queue_free()
-			get_tree().quit()
+		#if current_health <= 0:
+			#queue_free()
+			#get_tree().quit()
 		
 		body.death()
 		damaged.emit()
@@ -136,6 +169,18 @@ func _on_power_deposit_area_body_entered(body: Node2D) -> void:
 	if body is Player and body.power_carried > 0:
 		power += body.power_carried
 		body.power_carried = 0
+		
+		# POWER, HEALTH, SHIELD, SPEED
+		for power_type in body.power_types_carried:
+			match power_type:
+				Power.POWER_TYPE.HEALTH:
+					regenerate_health()
+				Power.POWER_TYPE.SHIELD:
+					regenerate_shield()
+				Power.POWER_TYPE.SPEED:
+					reduce_weapon_cooldowns()
+		
+		body.reset_power_types_carried()
 		no_power_timer.stop()
 		powered.emit()
 
@@ -163,3 +208,7 @@ func _on_drain_power_timer_timeout() -> void:
 		no_power_timer.start()
 	
 	drained.emit()
+
+
+func _on_reduced_cooldown_timer_timeout() -> void:
+	reset_weapon_cooldowns()
