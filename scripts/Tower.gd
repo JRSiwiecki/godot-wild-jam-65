@@ -11,6 +11,7 @@ signal overloaded
 
 @export var aoe_attack_area : Area2D
 @export var aoe_attack_timer : Timer
+@export var aoe_attack_particles : GPUParticles2D
 
 @export var laser_attack_area : Area2D
 @export var laser_attack_timer : Timer
@@ -99,6 +100,8 @@ func aoe_attack() -> void:
 	for body in aoe_attack_area.get_overlapping_bodies():
 		if body is Enemy:
 			body.death()
+	
+	aoe_attack_particles.restart()
 	
 	# Reset AOE attack
 	aoe_attack_timer.start()

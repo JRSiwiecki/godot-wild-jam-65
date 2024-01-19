@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d2mxwcxps1t1w"]
+[gd_scene load_steps=15 format=3 uid="uid://d2mxwcxps1t1w"]
 
 [ext_resource type="Texture2D" uid="uid://fopmfsnrkucm" path="res://assets/sprites/tower.png" id="1_mlpp4"]
 [ext_resource type="Script" path="res://scripts/Tower.gd" id="1_ok81d"]
@@ -17,15 +17,44 @@ size = Vector2(128, 64)
 [sub_resource type="CircleShape2D" id="CircleShape2D_hc4ao"]
 radius = 1074.12
 
+[sub_resource type="Gradient" id="Gradient_sw6p0"]
+offsets = PackedFloat32Array(0, 0.410448, 0.876866, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.831373, 0.784314, 0, 1, 0.956863, 0.270588, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yqolo"]
+gradient = SubResource("Gradient_sw6p0")
+
+[sub_resource type="Curve" id="Curve_c6yix"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.495232), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_grl11"]
+curve = SubResource("Curve_c6yix")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ybycv"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 180.0
+direction = Vector3(4, 4, 0)
+spread = 180.0
+initial_velocity_min = 500.0
+initial_velocity_max = 1000.0
+gravity = Vector3(0, 0, 0)
+scale_min = 64.0
+scale_max = 128.0
+scale_curve = SubResource("CurveTexture_grl11")
+color_ramp = SubResource("GradientTexture1D_yqolo")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fadod"]
 size = Vector2(50, 3500)
 
-[node name="Tower" type="StaticBody2D" node_paths=PackedStringArray("aoe_attack_area", "aoe_attack_timer", "laser_attack_area", "laser_attack_timer", "laser_attack_raycast", "laser_attack_line", "missile_attack_timer", "reduced_cooldown_timer", "no_power_timer")]
+[node name="Tower" type="StaticBody2D" node_paths=PackedStringArray("aoe_attack_area", "aoe_attack_timer", "aoe_attack_particles", "laser_attack_area", "laser_attack_timer", "laser_attack_raycast", "laser_attack_line", "missile_attack_timer", "reduced_cooldown_timer", "no_power_timer")]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_ok81d")
 aoe_attack_area = NodePath("AOE Attack")
 aoe_attack_timer = NodePath("AOE Attack Timer")
+aoe_attack_particles = NodePath("AOE Attack/AOE Particles")
 laser_attack_area = NodePath("Laser Attack")
 laser_attack_timer = NodePath("Laser Attack Timer")
 laser_attack_raycast = NodePath("Laser Attack/Laser Raycast")
@@ -75,6 +104,14 @@ metadata/_edit_lock_ = true
 shape = SubResource("CircleShape2D_hc4ao")
 debug_color = Color(0.890196, 0.294118, 0.352941, 0.419608)
 metadata/_edit_lock_ = true
+
+[node name="AOE Particles" type="GPUParticles2D" parent="AOE Attack"]
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_ybycv")
+one_shot = true
+explosiveness = 1.0
+randomness = 0.5
 
 [node name="Laser Attack" type="Area2D" parent="."]
 collision_layer = 3
