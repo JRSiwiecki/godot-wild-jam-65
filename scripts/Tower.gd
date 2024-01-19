@@ -7,6 +7,8 @@ signal powered
 signal drained
 signal overloaded
 
+@export var game_over_scene : PackedScene
+
 @export var aoe_attack_area : Area2D
 @export var aoe_attack_timer : Timer
 
@@ -161,12 +163,13 @@ func overload() -> void:
 	overloaded.emit()
 	
 	if overload_count >= overloads_to_win:
-		print("winner")
-		tower_death()
+		get_tree().change_scene_to_packed(game_over_scene)
+		Globals.game_outcome = true
 
 func tower_death() -> void:
 	queue_free()
-	get_tree().quit()
+	Globals.game_outcome = false
+	get_tree().change_scene_to_packed(game_over_scene)
 
 func _on_damage_area_body_entered(body: Node2D) -> void:
 	if body is Enemy:
