@@ -29,6 +29,7 @@ signal overloaded
 @export var damage_per_enemy : int = 25
 @export var power_drain : int = 1
 @export var power_threshold: int = 125
+@export var power_threshold_increase : int = 50
 @export var overloads_to_win : int = 3
 
 @export var weapon_cooldown_ratio : float  = 2.0
@@ -154,8 +155,8 @@ func find_closest_enemy() -> Node2D:
 
 func overload() -> void:
 	print("overload")
-	power_threshold += 50
-	power = 25
+	power_threshold += power_threshold_increase
+	power = POWER_LEVELS.LOW_POWER
 	overload_count += 1
 	overloaded.emit()
 	
