@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/UI.gd" id="1_f655f"]
 
-[node name="UI" type="Control" node_paths=PackedStringArray("tower_health_label", "tower_shield_label", "tower_power_label", "carrying_power_label", "enemies_killed_label")]
+[node name="UI" type="Control" node_paths=PackedStringArray("tower_health_label", "tower_shield_label", "tower_power_label", "carrying_power_label", "enemies_killed_label", "overloaded_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,6 +15,7 @@ tower_shield_label = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Tower S
 tower_power_label = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Tower Power")
 carrying_power_label = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Carrying Power")
 enemies_killed_label = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Enemies Killed")
+overloaded_label = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Times Overloaded")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -32,6 +33,9 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Tower Power" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Times Overloaded" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="Carrying Power" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]

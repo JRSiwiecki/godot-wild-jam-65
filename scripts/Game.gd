@@ -4,7 +4,6 @@ class_name Game
 
 signal power_spawned
 signal enemy_spawned
-
 signal enemy_killed
 signal collected
 
@@ -18,11 +17,16 @@ signal collected
 @export var enemy_spawn_marker : Marker2D
 @export var tower : Tower
 @export var player : Player
+@export var power_spawn_timer : Timer
+@export var enemy_spawn_timer : Timer
 
 var enemies_killed : int
 
 func _ready() -> void:
 	randomize()
+	
+	# Starting power
+	spawn_power()
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -86,3 +90,12 @@ func _on_enemy_killed() -> void:
 
 func _on_tower_powered() -> void:
 	collected.emit()
+
+func _on_tower_overloaded() -> void:
+	power_spawn_timer.stop()
+	power_spawn_timer.wait_time -= 0.25
+	power_spawn_timer.start()
+	
+	enemy_spawn_timer.stop()
+	enemy_spawn_timer.wait_time -= 0.10
+	enemy_spawn_timer.start()
