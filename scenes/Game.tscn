@@ -1,0 +1,117 @@
+[gd_scene load_steps=10 format=3 uid="uid://hjag5isbtsj5"]
+
+[ext_resource type="Script" path="res://scripts/Game.gd" id="1_dgiqo"]
+[ext_resource type="PackedScene" uid="uid://rgqlua35cw05" path="res://scenes/Player.tscn" id="1_lso4r"]
+[ext_resource type="PackedScene" uid="uid://d2mxwcxps1t1w" path="res://scenes/Tower.tscn" id="3_1fc8h"]
+[ext_resource type="PackedScene" uid="uid://c7u2xu3lei4ip" path="res://scenes/UI.tscn" id="4_7l8dh"]
+[ext_resource type="PackedScene" uid="uid://bd52ctd8mtv5e" path="res://scenes/Enemy.tscn" id="4_ikbqd"]
+[ext_resource type="PackedScene" uid="uid://cxmnkjdvnqweh" path="res://scenes/Power.tscn" id="5_ukpnx"]
+[ext_resource type="PackedScene" uid="uid://cfmjfdau01t6k" path="res://scenes/Wall.tscn" id="6_kwws6"]
+[ext_resource type="PackedScene" uid="uid://dligts5n11ptp" path="res://scenes/Game Over.tscn" id="7_0nkjk"]
+
+[sub_resource type="Curve2D" id="Curve2D_86xhg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -4, -2073, 0, 0, 0, 0, 3496, -2052, 0, 0, 0, 0, 3469, 1991, 0, 0, 0, 0, -4, 1964, 0, 0, 0, 0, -3489, 2029, 0, 0, 0, 0, -3495, -5, 0, 0, 0, 0, -3498, -2076, 0, 0, 0, 0, 2, -2079)
+}
+point_count = 8
+
+[node name="Game" type="Node2D" node_paths=PackedStringArray("enemy_group", "power_group", "spawn_area", "enemy_spawn_path", "enemy_spawn_marker", "tower", "player", "power_spawn_timer", "enemy_spawn_timer")]
+script = ExtResource("1_dgiqo")
+enemy_scene = ExtResource("4_ikbqd")
+power_scene = ExtResource("5_ukpnx")
+enemy_group = NodePath("Enemies")
+power_group = NodePath("Powers")
+spawn_area = NodePath("Spawn Area")
+enemy_spawn_path = NodePath("Enemy Spawn Path/PathFollow2D")
+enemy_spawn_marker = NodePath("Enemy Spawn Path/PathFollow2D/Marker2D")
+tower = NodePath("Tower")
+player = NodePath("Player")
+power_spawn_timer = NodePath("Power Spawn Timer")
+enemy_spawn_timer = NodePath("Enemy Spawn Timer")
+
+[node name="UI" parent="." node_paths=PackedStringArray("tower", "player", "game") instance=ExtResource("4_7l8dh")]
+tower = NodePath("../Tower")
+player = NodePath("../Player")
+game = NodePath("..")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-5, 0)
+zoom = Vector2(0.3, 0.3)
+metadata/_edit_lock_ = true
+
+[node name="Enemy Spawn Path" type="Path2D" parent="."]
+scale = Vector2(1.2, 1.2)
+curve = SubResource("Curve2D_86xhg")
+metadata/_edit_lock_ = true
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Enemy Spawn Path"]
+position = Vector2(1.9921, -2079)
+rotation = -0.000857143
+progress = 22107.0
+
+[node name="Marker2D" type="Marker2D" parent="Enemy Spawn Path/PathFollow2D"]
+
+[node name="Spawn Area" type="Area2D" parent="."]
+visible = false
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Spawn Area"]
+polygon = PackedVector2Array(-3041, -1684, -3027, 1637, 3062, 1670, 3019, -1679, -7, -1665, 8, -689, 203, -666, 355, -547, 388, 0, 398, 452, 212, 652, 27, 709, -235, 666, -416, 433, -430, -4, -430, -452, -216, -647, 8, -685, -2, -1669)
+metadata/_edit_lock_ = true
+
+[node name="Walls" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="Top Wall" parent="Walls" instance=ExtResource("6_kwws6")]
+position = Vector2(0, -1800)
+scale = Vector2(325, 1)
+metadata/_edit_lock_ = true
+
+[node name="Left Wall" parent="Walls" instance=ExtResource("6_kwws6")]
+position = Vector2(-3200, 0)
+rotation = 1.5708
+scale = Vector2(185, 1)
+metadata/_edit_lock_ = true
+
+[node name="Right Wall" parent="Walls" instance=ExtResource("6_kwws6")]
+position = Vector2(3200, 0)
+rotation = 1.5708
+scale = Vector2(185, 1)
+metadata/_edit_lock_ = true
+
+[node name="Bottom Wall" parent="Walls" instance=ExtResource("6_kwws6")]
+position = Vector2(0, 1800)
+scale = Vector2(325, 1)
+metadata/_edit_lock_ = true
+
+[node name="Powers" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="Enemies" type="Node2D" parent="."]
+position = Vector2(-4, -2199)
+metadata/_edit_lock_ = true
+
+[node name="Tower" parent="." instance=ExtResource("3_1fc8h")]
+game_over_scene = ExtResource("7_0nkjk")
+metadata/_edit_lock_ = true
+
+[node name="Player" parent="." instance=ExtResource("1_lso4r")]
+position = Vector2(0, -1168)
+
+[node name="Power Spawn Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="Enemy Spawn Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="collected" from="." to="UI" method="_on_game_collected"]
+[connection signal="enemy_killed" from="." to="UI" method="_on_game_enemy_killed"]
+[connection signal="damaged" from="Tower" to="UI" method="_on_tower_damaged"]
+[connection signal="drained" from="Tower" to="UI" method="_on_tower_drained"]
+[connection signal="overloaded" from="Tower" to="." method="_on_tower_overloaded"]
+[connection signal="powered" from="Tower" to="." method="_on_tower_powered"]
+[connection signal="powered" from="Tower" to="UI" method="_on_tower_powered"]
+[connection signal="timeout" from="Power Spawn Timer" to="." method="_on_power_spawn_timer_timeout"]
+[connection signal="timeout" from="Enemy Spawn Timer" to="." method="_on_enemy_spawn_timer_timeout"]

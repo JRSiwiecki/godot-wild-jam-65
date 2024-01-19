@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://ca4yhofngfgol"]
+
+[ext_resource type="Texture2D" uid="uid://c8lv8puqvxddw" path="res://assets/sprites/missile.png" id="1_2witt"]
+[ext_resource type="Script" path="res://scripts/Missile.gd" id="1_nbj4b"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2iuwl"]
+radius = 13.0
+height = 106.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tv65t"]
+radius = 390.128
+
+[node name="Missile" type="Area2D" node_paths=PackedStringArray("explosion_area", "life_timer")]
+scale = Vector2(2, 2)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_nbj4b")
+explosion_area = NodePath("Explosion Area")
+life_timer = NodePath("Life Timer")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_2witt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_2iuwl")
+metadata/_edit_lock_ = true
+
+[node name="Explosion Area" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Explosion Area"]
+shape = SubResource("CircleShape2D_tv65t")
+debug_color = Color(0.533333, 0.568627, 0.0980392, 0.419608)
+metadata/_edit_lock_ = true
+
+[node name="Life Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Life Timer" to="." method="_on_life_timer_timeout"]

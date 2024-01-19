@@ -1,0 +1,26 @@
+[gd_scene load_steps=7 format=3 uid="uid://cxmnkjdvnqweh"]
+
+[ext_resource type="Script" path="res://scripts/Power.gd" id="1_jjwmg"]
+[ext_resource type="Texture2D" uid="uid://deee2e08q2pp4" path="res://assets/sprites/battery_health.png" id="2_2eex8"]
+[ext_resource type="Texture2D" uid="uid://cxb6jqt7kpeh0" path="res://assets/sprites/battery_power.png" id="2_s2y7q"]
+[ext_resource type="Texture2D" uid="uid://ddph8ok63cbxf" path="res://assets/sprites/battery_shield.png" id="3_4al54"]
+[ext_resource type="Texture2D" uid="uid://bugb1ehtdnym2" path="res://assets/sprites/battery_speed.png" id="4_chgxn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qvcp8"]
+size = Vector2(70, 134)
+
+[node name="Power" type="Area2D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_jjwmg")
+sprite = NodePath("Sprite2D")
+power_texture = ExtResource("2_s2y7q")
+health_texture = ExtResource("2_2eex8")
+shield_texture = ExtResource("3_4al54")
+speed_texture = ExtResource("4_chgxn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_s2y7q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qvcp8")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

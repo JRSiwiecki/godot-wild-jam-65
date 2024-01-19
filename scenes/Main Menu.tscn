@@ -1,0 +1,62 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjkpdefm80xup"]
+
+[ext_resource type="Script" path="res://scripts/Main Menu.gd" id="1_jx4cm"]
+[ext_resource type="PackedScene" uid="uid://hjag5isbtsj5" path="res://scenes/Game.tscn" id="2_ib20p"]
+
+[node name="Main Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_jx4cm")
+game_scene = ExtResource("2_ib20p")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -330.5
+offset_top = -60.0
+offset_right = 330.5
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Play Button" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Play"
+
+[node name="Quit Button" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Quit
+"
+
+[node name="Instructions Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "Pick up batteries, deposit them into the tower, and overload the tower 3 times to win!"
+
+[node name="Credits Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "Credits: MusketItch"
+
+[connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer/VBoxContainer/Play Button" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer/VBoxContainer/Quit Button" to="." method="_on_quit_button_pressed"]
