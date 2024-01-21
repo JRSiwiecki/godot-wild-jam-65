@@ -40,6 +40,7 @@ signal overloaded
 @export var laser_attack_base_cooldown : float = 1.5
 @export var missile_attack_base_cooldown : float = 2.0
 
+@onready var player : Player = get_node("/root/Game/Player")
 @onready var closest_enemy : Node2D = null
 
 enum POWER_LEVELS { NO_POWER = 0, LOW_POWER = 25, 
@@ -189,6 +190,8 @@ func _on_damage_area_body_entered(body: Node2D) -> void:
 		
 		if current_health <= 0:
 			tower_death.call_deferred()
+		
+		player.take_damage()
 		
 		body.death()
 		damaged.emit()

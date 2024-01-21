@@ -1,9 +1,13 @@
-[gd_scene load_steps=21 format=3 uid="uid://rgqlua35cw05"]
+[gd_scene load_steps=22 format=3 uid="uid://rgqlua35cw05"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_sb48l"]
 [ext_resource type="Texture2D" uid="uid://vqsvw4ks0ixs" path="res://assets/sprites/RobotRevMainCharacter.png" id="2_sfa1u"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_m2xra"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ug728"]
+atlas = ExtResource("2_sfa1u")
+region = Rect2(2816, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4hch"]
 atlas = ExtResource("2_sfa1u")
 region = Rect2(3072, 0, 256, 256)
 
@@ -71,9 +75,12 @@ region = Rect2(2560, 0, 256, 256)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_m2xra")
+"texture": SubResource("AtlasTexture_ug728")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g4hch")
 }],
-"loop": true,
+"loop": false,
 "name": &"damage",
 "speed": 5.0
 }, {
@@ -96,7 +103,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xv68a")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
 "speed": 5.0
 }, {
@@ -150,11 +157,12 @@ metadata/_edit_lock_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_exduf")
-animation = &"idle"
-frame_progress = 0.595107
+animation = &"damage"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 34.5)
 shape = SubResource("CapsuleShape2D_epaaw")
 metadata/_edit_lock_ = true
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

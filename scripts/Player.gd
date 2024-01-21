@@ -10,21 +10,35 @@ class_name Player
 var power_carried : int = 0
 var power_types_carried : Array = []
 
+var taking_damage : bool = false
+
 func _physics_process(_delta: float) -> void:
 	var direction : Vector2 = Input.get_vector("left", "right", "up", "down").normalized()
 	velocity = direction * speed
 	
-	if velocity == Vector2.ZERO:
+	play_animation()
+	
+	move_and_slide()
+
+func play_animation() -> void:
+	if taking_damage:
+		animated_sprite.play("damage")
+	
+	elif velocity == Vector2.ZERO:
 		animated_sprite.play("idle")
 	
 	else:
-		animated_sprite.play("run")
 		animated_sprite.flip_h = velocity.x <= 0
-	
-	move_and_slide()
+		animated_sprite.play("run")
+
+func take_damage() -> void:
+	taking_damage = true
 
 func add_power_type_carried(power_type : Power.POWER_TYPE) -> void:
 	power_types_carried.append(power_type)
 
 func reset_power_types_carried() -> void:
 	power_types_carried = []
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	taking_damage = false
