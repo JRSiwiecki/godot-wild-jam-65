@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dligts5n11ptp"]
+[gd_scene load_steps=6 format=3 uid="uid://dligts5n11ptp"]
 
 [ext_resource type="Script" path="res://scripts/Game Over.gd" id="1_b78oh"]
+[ext_resource type="FontFile" uid="uid://bbuxl14asccae" path="res://assets/fonts/destructobeambb_bold.ttf" id="2_c4c2o"]
 [ext_resource type="AudioStream" uid="uid://bwsspsoks7123" path="res://assets/music/victory_passive1.mp3" id="2_ctxlv"]
 [ext_resource type="AudioStream" uid="uid://bcls6pw2ha4xe" path="res://assets/music/the_best_death_ya_gunna_get_joe.mp3" id="3_2qu1n"]
+[ext_resource type="FontFile" uid="uid://caw0xfplthm14" path="res://assets/fonts/destructobeambb_reg.ttf" id="3_d5sww"]
 
 [node name="Game Over" type="Control" node_paths=PackedStringArray("outcome_label", "victory_music", "defeat_music")]
 layout_mode = 3
@@ -32,10 +34,12 @@ layout_mode = 2
 
 [node name="Outcome Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_c4c2o")
 theme_override_font_sizes/font_size = 48
 
 [node name="Quit Button" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_d5sww")
 theme_override_font_sizes/font_size = 32
 text = "Quit"
 
