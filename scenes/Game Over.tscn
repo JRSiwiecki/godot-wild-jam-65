@@ -2,10 +2,11 @@
 
 [ext_resource type="Script" path="res://scripts/Game Over.gd" id="1_b78oh"]
 
-[node name="Game Over" type="Control" node_paths=PackedStringArray("outcome_label")]
+[node name="Game Over" type="Control" node_paths=PackedStringArray("canvas_layer", "outcome_label")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_b78oh")
+canvas_layer = NodePath("CanvasLayer")
 outcome_label = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Outcome Label")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

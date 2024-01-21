@@ -166,12 +166,19 @@ func overload() -> void:
 	overloaded.emit()
 	
 	if overload_count >= overloads_to_win:
-		get_tree().change_scene_to_packed(game_over_scene)
-		Globals.game_outcome = true
+		tower_fully_powered.call_deferred()
 
 func tower_death() -> void:
+	player.death()
+	await get_tree().create_timer(1.1).timeout
+	
 	queue_free()
 	Globals.game_outcome = false
+	
+	get_tree().change_scene_to_packed(game_over_scene)
+
+func tower_fully_powered() -> void:
+	Globals.game_outcome = true
 	get_tree().change_scene_to_packed(game_over_scene)
 
 func _on_damage_area_body_entered(body: Node2D) -> void:

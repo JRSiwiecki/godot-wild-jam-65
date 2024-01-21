@@ -1,5 +1,7 @@
 extends Control
 
+@export var canvas_layer : CanvasLayer
+
 @export var outcome_label : Label
 
 func _ready() -> void:
