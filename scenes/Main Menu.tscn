@@ -36,6 +36,7 @@ size_flags_vertical = 4
 
 [node name="Title Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.435294, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_k63md")
 theme_override_font_sizes/font_size = 96
 text = "Robot Revolution"
@@ -64,7 +65,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("4_ba5it")
 theme_override_font_sizes/font_size = 32
-text = "Pick up batteries, deposit them into the tower, and overload the tower 3 times to win!"
+text = "Pick up batteries, deposit them at the base of the tower, 
+and overload the tower 3 times to win!"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Credits Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -72,6 +76,8 @@ size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("4_ba5it")
 theme_override_font_sizes/font_size = 32
 text = "Credits: MusketItch, T-Dog, Dave"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Main Menu Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_3htmi")
