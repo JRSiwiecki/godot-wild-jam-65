@@ -71,11 +71,6 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	closest_enemy = find_closest_enemy()
 	
-	if closest_enemy:
-		# Draw the laser beam
-		laser_attack_line.points = [global_position, closest_enemy.global_position]
-	
-	
 	if can_aoe_attack and power >= POWER_LEVELS.LOW_POWER:
 		aoe_attack()
 	
@@ -134,13 +129,16 @@ func laser_attack() -> void:
 	var enemy_being_attacked : Object = laser_attack_raycast.get_collider()
 	
 	if enemy_being_attacked and enemy_being_attacked.has_method("death"):
+		# Draw the laser beam
+		laser_attack_line.points = [global_position, enemy_being_attacked.global_position]
+		
 		enemy_being_attacked.death()
-	
-	# Reset laser attack
-	laser_attack_timer.start()
-	can_laser_attack = false
-	
-	laser_attack_sound.play()
+		
+		laser_attack_sound.play()
+		
+		# Reset laser attack
+		laser_attack_timer.start()
+		can_laser_attack = false
 
 func missile_attack() -> void:
 	# No enemy found
