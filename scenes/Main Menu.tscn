@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjkpdefm80xup"]
+[gd_scene load_steps=6 format=3 uid="uid://bjkpdefm80xup"]
 
 [ext_resource type="Script" path="res://scripts/Main Menu.gd" id="1_jx4cm"]
 [ext_resource type="PackedScene" uid="uid://hjag5isbtsj5" path="res://scenes/Game.tscn" id="2_ib20p"]
+[ext_resource type="AudioStream" uid="uid://c75i7pc4ndcs4" path="res://assets/music/main_fucking_menu_joe.mp3" id="3_3htmi"]
+[ext_resource type="FontFile" uid="uid://bbuxl14asccae" path="res://assets/fonts/destructobeambb_bold.ttf" id="3_k63md"]
+[ext_resource type="FontFile" uid="uid://caw0xfplthm14" path="res://assets/fonts/destructobeambb_reg.ttf" id="4_ba5it"]
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -31,17 +34,27 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
+[node name="Title Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_k63md")
+theme_override_font_sizes/font_size = 96
+text = "Robot Revolution"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 
 [node name="Play Button" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_ba5it")
 theme_override_font_sizes/font_size = 32
 text = "Play"
 
 [node name="Quit Button" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_ba5it")
 theme_override_font_sizes/font_size = 32
 text = "Quit
 "
@@ -49,14 +62,20 @@ text = "Quit
 [node name="Instructions Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("4_ba5it")
 theme_override_font_sizes/font_size = 32
 text = "Pick up batteries, deposit them into the tower, and overload the tower 3 times to win!"
 
 [node name="Credits Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("4_ba5it")
 theme_override_font_sizes/font_size = 32
-text = "Credits: MusketItch"
+text = "Credits: MusketItch, T-Dog, Dave"
+
+[node name="Main Menu Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_3htmi")
+autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer/VBoxContainer/Play Button" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer/VBoxContainer/Quit Button" to="." method="_on_quit_button_pressed"]
