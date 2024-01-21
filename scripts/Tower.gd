@@ -159,7 +159,6 @@ func find_closest_enemy() -> Node2D:
 	return closest_enemy
 
 func overload() -> void:
-	print("overload")
 	power_threshold += power_threshold_increase
 	power = POWER_LEVELS.LOW_POWER
 	overload_count += 1
