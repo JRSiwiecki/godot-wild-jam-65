@@ -108,7 +108,7 @@ func aoe_attack() -> void:
 	# Attack all enemies in area
 	for body in aoe_attack_area.get_overlapping_bodies():
 		if body is Enemy:
-			body.death()
+			body.death(Enemy.DEATH_METHODS.EXPLODED)
 	
 	aoe_attack_particles.restart()
 	
@@ -132,7 +132,7 @@ func laser_attack() -> void:
 		# Draw the laser beam
 		laser_attack_line.points = [global_position, enemy_being_attacked.global_position]
 		
-		enemy_being_attacked.death()
+		enemy_being_attacked.death(Enemy.DEATH_METHODS.LASERED)
 		
 		laser_attack_sound.play()
 		
@@ -220,7 +220,7 @@ func _on_damage_area_body_entered(body: Node2D) -> void:
 		
 		player.take_damage()
 		
-		body.death()
+		body.death(Enemy.DEATH_METHODS.NONE)
 		damaged.emit()
 
 func _on_power_deposit_area_body_entered(body: Node2D) -> void:

@@ -30,14 +30,14 @@ radius = 1074.12
 offsets = PackedFloat32Array(0, 0.410448, 0.876866, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.831373, 0.784314, 0, 1, 0.956863, 0.270588, 0, 1, 1, 1, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_yqolo"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cif3c"]
 gradient = SubResource("Gradient_sw6p0")
 
 [sub_resource type="Curve" id="Curve_c6yix"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.495232), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_grl11"]
+[sub_resource type="CurveTexture" id="CurveTexture_0bj2i"]
 curve = SubResource("Curve_c6yix")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ybycv"]
@@ -51,8 +51,8 @@ initial_velocity_max = 1000.0
 gravity = Vector3(0, 0, 0)
 scale_min = 64.0
 scale_max = 128.0
-scale_curve = SubResource("CurveTexture_grl11")
-color_ramp = SubResource("GradientTexture1D_yqolo")
+scale_curve = SubResource("CurveTexture_0bj2i")
+color_ramp = SubResource("GradientTexture1D_cif3c")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fadod"]
 size = Vector2(50, 3500)

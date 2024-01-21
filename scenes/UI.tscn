@@ -1,8 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://c7u2xu3lei4ip"]
+[gd_scene load_steps=8 format=3 uid="uid://c7u2xu3lei4ip"]
 
 [ext_resource type="Script" path="res://scripts/UI.gd" id="1_f655f"]
 
-[node name="UI" type="Control" node_paths=PackedStringArray("tower_health_label", "tower_shield_label", "tower_power_label", "carrying_power_label", "enemies_killed_label", "overloaded_label")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ywg7"]
+bg_color = Color(0.6, 0.145098, 0.145098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7idr4"]
+bg_color = Color(0.337255, 0.768627, 0.345098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pnxjl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i7yco"]
+bg_color = Color(0.180392, 0.67451, 0.721569, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shgfr"]
+bg_color = Color(0.690196, 0.682353, 0.6, 0.988235)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4odbn"]
+bg_color = Color(0.968627, 0.913725, 0.309804, 1)
+
+[node name="UI" type="Control" node_paths=PackedStringArray("carrying_power_label", "overloaded_label", "tower_power_bar", "tower_health_bar", "tower_shield_bar")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,36 +27,68 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_f655f")
-tower_health_label = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Tower Health")
-tower_shield_label = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Tower Shield")
-tower_power_label = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Tower Power")
 carrying_power_label = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Carrying Power")
-enemies_killed_label = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Enemies Killed")
 overloaded_label = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Times Overloaded")
+tower_power_bar = NodePath("CanvasLayer/MarginContainer2/Tower Power Bar")
+tower_health_bar = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Tower Health")
+tower_shield_bar = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Tower Shield")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 50.0
+offset_right = 158.0
+offset_bottom = 158.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
 layout_mode = 2
+metadata/_edit_lock_ = true
 
-[node name="Tower Health" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+[node name="Tower Health" type="ProgressBar" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_6ywg7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7idr4")
 
-[node name="Tower Shield" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+[node name="Tower Shield" type="ProgressBar" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-
-[node name="Tower Power" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
-layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_pnxjl")
+theme_override_styles/fill = SubResource("StyleBoxFlat_i7yco")
+max_value = 50.0
 
 [node name="Times Overloaded" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+metadata/_edit_lock_ = true
 
 [node name="Carrying Power" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+metadata/_edit_lock_ = true
 
 [node name="Enemies Killed" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -360.0
+offset_top = -40.0
+offset_right = 360.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 50
+
+[node name="Tower Power Bar" type="ProgressBar" parent="CanvasLayer/MarginContainer2"]
+custom_minimum_size = Vector2(720, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/background = SubResource("StyleBoxFlat_shgfr")
+theme_override_styles/fill = SubResource("StyleBoxFlat_4odbn")
