@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fvxrdk3exnnu"
-path="res://.godot/imported/player.png-e1eaffe0873063c60a0d0b322e4d87d9.ctex"
+uid="uid://lofhmdxotnu0"
+path="res://.godot/imported/overload-slot.png-0fe9981e1468ba16b404918bbe62b4e2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/player.png"
-dest_files=["res://.godot/imported/player.png-e1eaffe0873063c60a0d0b322e4d87d9.ctex"]
+source_file="res://assets/sprites/overload-slot.png"
+dest_files=["res://.godot/imported/overload-slot.png-0fe9981e1468ba16b404918bbe62b4e2.ctex"]
 
 [params]
 

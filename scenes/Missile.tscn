@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ca4yhofngfgol"]
+[gd_scene load_steps=10 format=3 uid="uid://ca4yhofngfgol"]
 
 [ext_resource type="Texture2D" uid="uid://c8lv8puqvxddw" path="res://assets/sprites/missile.png" id="1_2witt"]
 [ext_resource type="Script" path="res://scripts/Missile.gd" id="1_nbj4b"]
@@ -10,13 +10,43 @@ height = 106.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_tv65t"]
 radius = 390.128
 
-[node name="Missile" type="Area2D" node_paths=PackedStringArray("explosion_area", "life_timer")]
+[sub_resource type="Gradient" id="Gradient_cgkig"]
+offsets = PackedFloat32Array(0, 0.410448, 0.876866, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.831373, 0.784314, 0, 1, 0.956863, 0.270588, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yqolo"]
+gradient = SubResource("Gradient_cgkig")
+
+[sub_resource type="Curve" id="Curve_voe00"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.495232), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_grl11"]
+curve = SubResource("Curve_voe00")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vooky"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 180.0
+direction = Vector3(4, 4, 0)
+spread = 180.0
+initial_velocity_min = 250.0
+initial_velocity_max = 500.0
+gravity = Vector3(0, 0, 0)
+scale_min = 64.0
+scale_max = 128.0
+scale_curve = SubResource("CurveTexture_grl11")
+color_ramp = SubResource("GradientTexture1D_yqolo")
+
+[node name="Missile" type="Area2D" node_paths=PackedStringArray("explosion_area", "life_timer", "sprite", "explosion_particles")]
 scale = Vector2(2, 2)
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_nbj4b")
 explosion_area = NodePath("Explosion Area")
 life_timer = NodePath("Life Timer")
+sprite = NodePath("Sprite2D")
+explosion_particles = NodePath("Explosion Particles")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708
@@ -41,6 +71,15 @@ metadata/_edit_lock_ = true
 [node name="Life Timer" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[node name="Explosion Particles" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_vooky")
+one_shot = true
+explosiveness = 1.0
+randomness = 0.5
+metadata/_edit_lock_ = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Life Timer" to="." method="_on_life_timer_timeout"]

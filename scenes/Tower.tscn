@@ -1,15 +1,24 @@
-[gd_scene load_steps=15 format=3 uid="uid://d2mxwcxps1t1w"]
+[gd_scene load_steps=23 format=3 uid="uid://d2mxwcxps1t1w"]
 
-[ext_resource type="Texture2D" uid="uid://fopmfsnrkucm" path="res://assets/sprites/tower.png" id="1_mlpp4"]
 [ext_resource type="Script" path="res://scripts/Tower.gd" id="1_ok81d"]
+[ext_resource type="PackedScene" uid="uid://dligts5n11ptp" path="res://scenes/Game Over.tscn" id="2_knnsq"]
 [ext_resource type="PackedScene" uid="uid://ca4yhofngfgol" path="res://scenes/Missile.tscn" id="2_tr6g3"]
+[ext_resource type="Texture2D" uid="uid://78ldoprw1m00" path="res://assets/sprites/TowerRobotRev.png" id="3_legnc"]
 [ext_resource type="Texture2D" uid="uid://clofdtcfvbkge" path="res://assets/sprites/tower-deposit.png" id="3_q833a"]
+[ext_resource type="AudioStream" uid="uid://gjskhren5a7" path="res://assets/sfx/power_deposit.wav" id="6_6v6o0"]
+[ext_resource type="AudioStream" uid="uid://dc32bq87f0p2a" path="res://assets/sfx/aoe.wav" id="7_hrloe"]
+[ext_resource type="AudioStream" uid="uid://bqcck5l62dwko" path="res://assets/sfx/laser.mp3" id="8_mhcfy"]
+[ext_resource type="AudioStream" uid="uid://dgufwlussogon" path="res://assets/sfx/overload.mp3" id="9_5rdq4"]
+[ext_resource type="AudioStream" uid="uid://bh8vvsptnkcwk" path="res://assets/sfx/explosion.wav" id="10_woeon"]
+[ext_resource type="AudioStream" uid="uid://cbksie3jlboap" path="res://assets/sfx/tower_damage.wav" id="11_y3w74"]
+[ext_resource type="AudioStream" uid="uid://bgjckmvw0yrk7" path="res://assets/sfx/shield_hit.wav" id="12_cpot3"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dy2on"]
-size = Vector2(510, 1024)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_427b0"]
+radius = 172.0
+height = 994.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g7ies"]
-size = Vector2(545, 1054)
+size = Vector2(450, 1046)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4t15r"]
 size = Vector2(128, 64)
@@ -21,14 +30,14 @@ radius = 1074.12
 offsets = PackedFloat32Array(0, 0.410448, 0.876866, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.831373, 0.784314, 0, 1, 0.956863, 0.270588, 0, 1, 1, 1, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_yqolo"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cif3c"]
 gradient = SubResource("Gradient_sw6p0")
 
 [sub_resource type="Curve" id="Curve_c6yix"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.495232), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_grl11"]
+[sub_resource type="CurveTexture" id="CurveTexture_0bj2i"]
 curve = SubResource("Curve_c6yix")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ybycv"]
@@ -42,34 +51,45 @@ initial_velocity_max = 1000.0
 gravity = Vector3(0, 0, 0)
 scale_min = 64.0
 scale_max = 128.0
-scale_curve = SubResource("CurveTexture_grl11")
-color_ramp = SubResource("GradientTexture1D_yqolo")
+scale_curve = SubResource("CurveTexture_0bj2i")
+color_ramp = SubResource("GradientTexture1D_cif3c")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fadod"]
 size = Vector2(50, 3500)
 
-[node name="Tower" type="StaticBody2D" node_paths=PackedStringArray("aoe_attack_area", "aoe_attack_timer", "aoe_attack_particles", "laser_attack_area", "laser_attack_timer", "laser_attack_raycast", "laser_attack_line", "missile_attack_timer", "reduced_cooldown_timer", "no_power_timer")]
+[node name="Tower" type="StaticBody2D" node_paths=PackedStringArray("aoe_attack_area", "aoe_attack_timer", "aoe_attack_particles", "aoe_attack_sound", "laser_attack_area", "laser_attack_timer", "laser_attack_raycast", "laser_attack_line", "laser_attack_sound", "missile_attack_timer", "explosion_sound", "power_deposit_sound", "overload_sound", "tower_damaged_sound", "shield_damaged_sound", "reduced_cooldown_timer", "no_power_timer")]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_ok81d")
+game_over_scene = ExtResource("2_knnsq")
 aoe_attack_area = NodePath("AOE Attack")
 aoe_attack_timer = NodePath("AOE Attack Timer")
 aoe_attack_particles = NodePath("AOE Attack/AOE Particles")
+aoe_attack_sound = NodePath("AOE Attack/AOE")
 laser_attack_area = NodePath("Laser Attack")
 laser_attack_timer = NodePath("Laser Attack Timer")
 laser_attack_raycast = NodePath("Laser Attack/Laser Raycast")
 laser_attack_line = NodePath("Laser Attack/Laser Raycast/Line2D")
+laser_attack_sound = NodePath("Laser Attack/Laser")
 missile_scene = ExtResource("2_tr6g3")
 missile_attack_timer = NodePath("Missile Attack Timer")
+explosion_sound = NodePath("Explosion")
+power_deposit_sound = NodePath("Power Deposit Area/Power Deposit")
+overload_sound = NodePath("Overload")
+tower_damaged_sound = NodePath("Damage")
+shield_damaged_sound = NodePath("Shield")
 reduced_cooldown_timer = NodePath("Reduced Cooldown Timer")
 no_power_timer = NodePath("No Power Timer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_mlpp4")
+position = Vector2(48, 75)
+scale = Vector2(5, 5)
+texture = ExtResource("3_legnc")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_dy2on")
+position = Vector2(13, -36)
+shape = SubResource("CapsuleShape2D_427b0")
 metadata/_edit_lock_ = true
 
 [node name="Damage Area" type="Area2D" parent="."]
@@ -78,7 +98,7 @@ collision_mask = 3
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage Area"]
-position = Vector2(2.5, -3)
+position = Vector2(14, -28)
 shape = SubResource("RectangleShape2D_g7ies")
 metadata/_edit_lock_ = true
 
@@ -94,6 +114,10 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Power Deposit Area"]
 shape = SubResource("RectangleShape2D_4t15r")
 metadata/_edit_lock_ = true
+
+[node name="Power Deposit" type="AudioStreamPlayer" parent="Power Deposit Area"]
+stream = ExtResource("6_6v6o0")
+volume_db = -30.0
 
 [node name="AOE Attack" type="Area2D" parent="."]
 collision_layer = 3
@@ -112,6 +136,11 @@ process_material = SubResource("ParticleProcessMaterial_ybycv")
 one_shot = true
 explosiveness = 1.0
 randomness = 0.5
+metadata/_edit_lock_ = true
+
+[node name="AOE" type="AudioStreamPlayer" parent="AOE Attack"]
+stream = ExtResource("7_hrloe")
+volume_db = -30.0
 
 [node name="Laser Attack" type="Area2D" parent="."]
 collision_layer = 3
@@ -131,6 +160,10 @@ metadata/_edit_lock_ = true
 [node name="Line2D" type="Line2D" parent="Laser Attack/Laser Raycast"]
 width = 5.0
 default_color = Color(0.94902, 0.94902, 0, 1)
+
+[node name="Laser" type="AudioStreamPlayer" parent="Laser Attack"]
+stream = ExtResource("8_mhcfy")
+volume_db = -30.0
 
 [node name="AOE Attack Timer" type="Timer" parent="."]
 one_shot = true
@@ -155,6 +188,22 @@ one_shot = true
 [node name="Reduced Cooldown Timer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
+
+[node name="Overload" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_5rdq4")
+volume_db = -30.0
+
+[node name="Explosion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_woeon")
+volume_db = -30.0
+
+[node name="Damage" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_y3w74")
+volume_db = -30.0
+
+[node name="Shield" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_cpot3")
+volume_db = -30.0
 
 [connection signal="body_entered" from="Damage Area" to="." method="_on_damage_area_body_entered"]
 [connection signal="body_entered" from="Power Deposit Area" to="." method="_on_power_deposit_area_body_entered"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dx6k8lshhmwva"
-path="res://.godot/imported/bullet.png-f46585c7ec2413c07a04c5a8ef7289a3.ctex"
+uid="uid://we7g6dr2uogm"
+path="res://.godot/imported/carry-slot.png-3208e8f9efcf49228343e77c4bcb41b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/bullet.png"
-dest_files=["res://.godot/imported/bullet.png-f46585c7ec2413c07a04c5a8ef7289a3.ctex"]
+source_file="res://assets/sprites/carry-slot.png"
+dest_files=["res://.godot/imported/carry-slot.png-3208e8f9efcf49228343e77c4bcb41b0.ctex"]
 
 [params]
 
