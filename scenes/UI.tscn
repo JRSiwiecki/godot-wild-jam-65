@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://c7u2xu3lei4ip"]
+[gd_scene load_steps=9 format=3 uid="uid://c7u2xu3lei4ip"]
 
 [ext_resource type="Script" path="res://scripts/UI.gd" id="1_f655f"]
+[ext_resource type="FontFile" uid="uid://caw0xfplthm14" path="res://assets/fonts/destructobeambb_reg.ttf" id="2_1a7wr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ywg7"]
 bg_color = Color(0.6, 0.145098, 0.145098, 1)
@@ -29,9 +30,9 @@ grow_vertical = 2
 script = ExtResource("1_f655f")
 carrying_power_label = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Carrying Power")
 overloaded_label = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Times Overloaded")
-tower_power_bar = NodePath("CanvasLayer/MarginContainer2/Tower Power Bar")
-tower_health_bar = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Tower Health")
-tower_shield_bar = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Tower Shield")
+tower_power_bar = NodePath("CanvasLayer/Power Margin Container/Tower Power Bar")
+tower_health_bar = NodePath("CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/Tower Health")
+tower_shield_bar = NodePath("CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer2/Tower Shield")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -45,32 +46,54 @@ theme_override_constants/margin_top = 20
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="Tower Health" type="ProgressBar" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Health" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1a7wr")
+theme_override_font_sizes/font_size = 32
+text = "Health"
+
+[node name="Tower Health" type="ProgressBar" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1a7wr")
+theme_override_font_sizes/font_size = 32
 theme_override_styles/background = SubResource("StyleBoxFlat_6ywg7")
 theme_override_styles/fill = SubResource("StyleBoxFlat_7idr4")
 
-[node name="Tower Shield" type="ProgressBar" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Shield" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1a7wr")
+theme_override_font_sizes/font_size = 32
+text = "Shield"
+
+[node name="Tower Shield" type="ProgressBar" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1a7wr")
+theme_override_font_sizes/font_size = 32
 theme_override_styles/background = SubResource("StyleBoxFlat_pnxjl")
 theme_override_styles/fill = SubResource("StyleBoxFlat_i7yco")
 max_value = 50.0
 
 [node name="Times Overloaded" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1a7wr")
+theme_override_font_sizes/font_size = 32
 metadata/_edit_lock_ = true
 
 [node name="Carrying Power" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1a7wr")
+theme_override_font_sizes/font_size = 32
 metadata/_edit_lock_ = true
 
-[node name="Enemies Killed" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-metadata/_edit_lock_ = true
-
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer"]
+[node name="Power Margin Container" type="MarginContainer" parent="CanvasLayer"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -81,14 +104,15 @@ offset_top = -40.0
 offset_right = 360.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/margin_bottom = 50
+theme_override_constants/margin_bottom = 35
 
-[node name="Tower Power Bar" type="ProgressBar" parent="CanvasLayer/MarginContainer2"]
+[node name="Tower Power Bar" type="ProgressBar" parent="CanvasLayer/Power Margin Container"]
 custom_minimum_size = Vector2(720, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_1a7wr")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/background = SubResource("StyleBoxFlat_shgfr")
 theme_override_styles/fill = SubResource("StyleBoxFlat_4odbn")
