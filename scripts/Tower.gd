@@ -188,7 +188,7 @@ func _on_damage_area_body_entered(body: Node2D) -> void:
 		current_health -= leftover_damage
 		
 		if current_health <= 0:
-			tower_death()
+			tower_death.call_deferred()
 		
 		body.death()
 		damaged.emit()
