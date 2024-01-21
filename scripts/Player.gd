@@ -11,6 +11,7 @@ var power_carried : int = 0
 var power_types_carried : Array = []
 
 var taking_damage : bool = false
+var player_is_dead : bool = false
 
 func _physics_process(_delta: float) -> void:
 	var direction : Vector2 = Input.get_vector("left", "right", "up", "down").normalized()
@@ -21,7 +22,10 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 func play_animation() -> void:
-	if taking_damage:
+	if player_is_dead:
+		animated_sprite.play("death")
+	
+	elif taking_damage:
 		animated_sprite.play("damage")
 	
 	elif velocity == Vector2.ZERO:
@@ -33,6 +37,9 @@ func play_animation() -> void:
 
 func take_damage() -> void:
 	taking_damage = true
+
+func death() -> void:
+	player_is_dead = true
 
 func add_power_type_carried(power_type : Power.POWER_TYPE) -> void:
 	power_types_carried.append(power_type)
