@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://hjag5isbtsj5"]
+[gd_scene load_steps=10 format=3 uid="uid://hjag5isbtsj5"]
 
 [ext_resource type="Script" path="res://scripts/Game.gd" id="1_dgiqo"]
 [ext_resource type="PackedScene" uid="uid://rgqlua35cw05" path="res://scenes/Player.tscn" id="1_lso4r"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://bd52ctd8mtv5e" path="res://scenes/Enemy.tscn" id="4_ikbqd"]
 [ext_resource type="PackedScene" uid="uid://cxmnkjdvnqweh" path="res://scenes/Power.tscn" id="5_ukpnx"]
 [ext_resource type="PackedScene" uid="uid://cfmjfdau01t6k" path="res://scenes/Wall.tscn" id="6_kwws6"]
-[ext_resource type="PackedScene" uid="uid://dligts5n11ptp" path="res://scenes/Game Over.tscn" id="7_0nkjk"]
 [ext_resource type="AudioStream" uid="uid://cs2eexrt4jths" path="res://assets/music/actually_game_song_joe.mp3" id="9_l8y5n"]
 
 [sub_resource type="Curve2D" id="Curve2D_86xhg"]
@@ -93,7 +92,6 @@ position = Vector2(-4, -2199)
 metadata/_edit_lock_ = true
 
 [node name="Tower" parent="." instance=ExtResource("3_1fc8h")]
-game_over_scene = ExtResource("7_0nkjk")
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("1_lso4r")]

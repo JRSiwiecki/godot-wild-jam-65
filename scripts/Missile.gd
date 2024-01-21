@@ -2,6 +2,8 @@ extends Area2D
 
 class_name Missile
 
+signal exploded
+
 @export var explosion_area : Area2D
 @export var life_timer : Timer
 
@@ -9,10 +11,11 @@ class_name Missile
 
 var target : Node2D
 var direction : Vector2
+var has_exploded : bool = false
 
 func _physics_process(delta: float) -> void:
 	# Check if target is still valid
-	if !is_instance_valid(target):
+	if !is_instance_valid(target) and !has_exploded:
 		explode()
 		return
 	
@@ -28,6 +31,8 @@ func explode() -> void:
 		if body is Enemy:
 			body.death()
 	
+	has_exploded = true
+	exploded.emit()
 	queue_free()
 
 func _on_body_entered(body: Node2D) -> void:

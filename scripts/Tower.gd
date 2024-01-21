@@ -22,6 +22,7 @@ signal overloaded
 
 @export var missile_scene : PackedScene
 @export var missile_attack_timer : Timer
+@export var explosion_sound : AudioStreamPlayer
 
 @export var power_deposit_sound : AudioStreamPlayer
 @export var overload_sound : AudioStreamPlayer
@@ -149,6 +150,8 @@ func missile_attack() -> void:
 	owner.add_child(missile)
 	missile.target = closest_enemy
 	
+	missile.exploded.connect(_on_missile_exploded)
+	
 	missile_attack_timer.start()
 	can_missile_attack = false
 
@@ -268,3 +271,6 @@ func _on_drain_power_timer_timeout() -> void:
 
 func _on_reduced_cooldown_timer_timeout() -> void:
 	reset_weapon_cooldowns()
+
+func _on_missile_exploded() -> void:
+	explosion_sound.play()

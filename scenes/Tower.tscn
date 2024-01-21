@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d2mxwcxps1t1w"]
+[gd_scene load_steps=21 format=3 uid="uid://d2mxwcxps1t1w"]
 
 [ext_resource type="Script" path="res://scripts/Tower.gd" id="1_ok81d"]
 [ext_resource type="PackedScene" uid="uid://dligts5n11ptp" path="res://scenes/Game Over.tscn" id="2_knnsq"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://canbmlgld1exu" path="res://assets/sfx/aoe.mp3" id="7_684u7"]
 [ext_resource type="AudioStream" uid="uid://bqcck5l62dwko" path="res://assets/sfx/laser.mp3" id="8_mhcfy"]
 [ext_resource type="AudioStream" uid="uid://dgufwlussogon" path="res://assets/sfx/overload.mp3" id="9_5rdq4"]
+[ext_resource type="AudioStream" uid="uid://bh8vvsptnkcwk" path="res://assets/sfx/explosion.wav" id="10_woeon"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_427b0"]
 radius = 172.0
@@ -54,7 +55,7 @@ color_ramp = SubResource("GradientTexture1D_yqolo")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fadod"]
 size = Vector2(50, 3500)
 
-[node name="Tower" type="StaticBody2D" node_paths=PackedStringArray("aoe_attack_area", "aoe_attack_timer", "aoe_attack_particles", "aoe_attack_sound", "laser_attack_area", "laser_attack_timer", "laser_attack_raycast", "laser_attack_line", "laser_attack_sound", "missile_attack_timer", "power_deposit_sound", "overload_sound", "reduced_cooldown_timer", "no_power_timer")]
+[node name="Tower" type="StaticBody2D" node_paths=PackedStringArray("aoe_attack_area", "aoe_attack_timer", "aoe_attack_particles", "aoe_attack_sound", "laser_attack_area", "laser_attack_timer", "laser_attack_raycast", "laser_attack_line", "laser_attack_sound", "missile_attack_timer", "explosion_sound", "power_deposit_sound", "overload_sound", "reduced_cooldown_timer", "no_power_timer")]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_ok81d")
@@ -70,6 +71,7 @@ laser_attack_line = NodePath("Laser Attack/Laser Raycast/Line2D")
 laser_attack_sound = NodePath("Laser Attack/Laser")
 missile_scene = ExtResource("2_tr6g3")
 missile_attack_timer = NodePath("Missile Attack Timer")
+explosion_sound = NodePath("Explosion")
 power_deposit_sound = NodePath("Power Deposit Area/Power Deposit")
 overload_sound = NodePath("Overload")
 reduced_cooldown_timer = NodePath("Reduced Cooldown Timer")
@@ -185,6 +187,11 @@ one_shot = true
 
 [node name="Overload" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_5rdq4")
+volume_db = -30.0
+
+[node name="Explosion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_woeon")
+volume_db = -30.0
 
 [connection signal="body_entered" from="Damage Area" to="." method="_on_damage_area_body_entered"]
 [connection signal="body_entered" from="Power Deposit Area" to="." method="_on_power_deposit_area_body_entered"]

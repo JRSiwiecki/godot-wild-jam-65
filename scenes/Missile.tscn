@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://ca4yhofngfgol"]
+[gd_scene load_steps=5 format=3 uid="uid://ca4yhofngfgol"]
 
 [ext_resource type="Texture2D" uid="uid://c8lv8puqvxddw" path="res://assets/sprites/missile.png" id="1_2witt"]
 [ext_resource type="Script" path="res://scripts/Missile.gd" id="1_nbj4b"]
-[ext_resource type="AudioStream" uid="uid://bh8vvsptnkcwk" path="res://assets/sfx/explosion.wav" id="3_lv7ju"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2iuwl"]
 radius = 13.0
@@ -42,9 +41,6 @@ metadata/_edit_lock_ = true
 [node name="Life Timer" type="Timer" parent="."]
 one_shot = true
 autostart = true
-
-[node name="Explosion" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_lv7ju")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Life Timer" to="." method="_on_life_timer_timeout"]
