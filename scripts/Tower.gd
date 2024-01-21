@@ -12,14 +12,19 @@ signal overloaded
 @export var aoe_attack_area : Area2D
 @export var aoe_attack_timer : Timer
 @export var aoe_attack_particles : GPUParticles2D
+@export var aoe_attack_sound : AudioStreamPlayer
 
 @export var laser_attack_area : Area2D
 @export var laser_attack_timer : Timer
 @export var laser_attack_raycast : RayCast2D
 @export var laser_attack_line : Line2D
+@export var laser_attack_sound : AudioStreamPlayer
 
 @export var missile_scene : PackedScene
 @export var missile_attack_timer : Timer
+
+@export var power_deposit_sound : AudioStreamPlayer
+@export var overload_sound : AudioStreamPlayer
 
 @export var reduced_cooldown_timer : Timer
 
@@ -62,6 +67,11 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	closest_enemy = find_closest_enemy()
+	
+	if closest_enemy:
+		# Draw the laser beam
+		laser_attack_line.points = [global_position, closest_enemy.global_position]
+	
 	
 	if can_aoe_attack and power >= POWER_LEVELS.LOW_POWER:
 		aoe_attack()
@@ -107,14 +117,13 @@ func aoe_attack() -> void:
 	# Reset AOE attack
 	aoe_attack_timer.start()
 	can_aoe_attack = false
+	
+	aoe_attack_sound.play()
 
 func laser_attack() -> void:
 	# No enemy found
 	if !closest_enemy:
 		return
-	
-	# Draw the laser beam
-	laser_attack_line.points = [global_position, closest_enemy.global_position]
 	
 	# Attack enemy with laser
 	laser_attack_raycast.target_position = closest_enemy.global_position
@@ -127,6 +136,8 @@ func laser_attack() -> void:
 	# Reset laser attack
 	laser_attack_timer.start()
 	can_laser_attack = false
+	
+	laser_attack_sound.play()
 
 func missile_attack() -> void:
 	# No enemy found
@@ -164,6 +175,8 @@ func overload() -> void:
 	power = POWER_LEVELS.LOW_POWER
 	overload_count += 1
 	overloaded.emit()
+	
+	overload_sound.play()
 	
 	if overload_count >= overloads_to_win:
 		tower_fully_powered.call_deferred()
@@ -208,6 +221,8 @@ func _on_power_deposit_area_body_entered(body: Node2D) -> void:
 	if body is Player and body.power_carried > 0:
 		power += body.power_carried
 		body.power_carried = 0
+		
+		power_deposit_sound.play()
 		
 		if power >= power_threshold:
 			overload()
