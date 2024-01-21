@@ -80,7 +80,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("4_ba5it")
 theme_override_font_sizes/font_size = 32
-text = "Credits: MusketItch, T-Dog, Dave"
+text = "Credits: Musket, T-Dog, Dave"
 horizontal_alignment = 1
 vertical_alignment = 1
 
