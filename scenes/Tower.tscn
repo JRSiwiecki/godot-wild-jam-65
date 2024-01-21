@@ -5,11 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://78ldoprw1m00" path="res://assets/sprites/TowerRobotRev.png" id="3_legnc"]
 [ext_resource type="Texture2D" uid="uid://clofdtcfvbkge" path="res://assets/sprites/tower-deposit.png" id="3_q833a"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dy2on"]
-size = Vector2(523, 1035)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_427b0"]
+radius = 172.0
+height = 994.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g7ies"]
-size = Vector2(556, 1065)
+size = Vector2(450, 1046)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4t15r"]
 size = Vector2(128, 64)
@@ -71,8 +72,8 @@ texture = ExtResource("3_legnc")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2.5, -2.5)
-shape = SubResource("RectangleShape2D_dy2on")
+position = Vector2(13, -36)
+shape = SubResource("CapsuleShape2D_427b0")
 metadata/_edit_lock_ = true
 
 [node name="Damage Area" type="Area2D" parent="."]
@@ -81,7 +82,7 @@ collision_mask = 3
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage Area"]
-position = Vector2(3, -0.5)
+position = Vector2(14, -28)
 shape = SubResource("RectangleShape2D_g7ies")
 metadata/_edit_lock_ = true
 
