@@ -19,6 +19,9 @@ func _physics_process(_delta: float) -> void:
 	
 	play_animation()
 	
+	if player_is_dead:
+		return
+	
 	move_and_slide()
 
 func play_animation() -> void:
