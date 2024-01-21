@@ -14,6 +14,11 @@ game_scene = ExtResource("2_ib20p")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1990.0
+offset_bottom = 1121.0
+color = Color(0.152941, 0.0862745, 0.105882, 1)
+
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
 anchors_preset = 8
 anchor_left = 0.5
