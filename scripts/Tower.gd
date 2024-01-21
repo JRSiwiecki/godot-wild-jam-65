@@ -26,6 +26,8 @@ signal overloaded
 
 @export var power_deposit_sound : AudioStreamPlayer
 @export var overload_sound : AudioStreamPlayer
+@export var tower_damaged_sound : AudioStreamPlayer
+@export var shield_damaged_sound : AudioStreamPlayer
 
 @export var reduced_cooldown_timer : Timer
 
@@ -208,8 +210,11 @@ func _on_damage_area_body_entered(body: Node2D) -> void:
 			
 			shield -= damage_per_enemy
 			shield = max(shield, 0)
+			shield_damaged_sound.play()
 		
-		current_health -= leftover_damage
+		if leftover_damage > 0:
+			current_health -= leftover_damage
+			tower_damaged_sound.play()
 		
 		if current_health <= 0:
 			player.death()
